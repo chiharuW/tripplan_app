@@ -1,0 +1,26 @@
+<h1>トップ画面</h1>
+<section class="wrapper flex">
+	<div class="content">
+		<div class="mv">
+			<p>
+				TripPlanへようこうそ<br>
+				このサイトは旅行の計画を立て、共有できるコミュニティサイトです。<br>
+				計画だけでなく、日記や振り返りのページも作成可能です。<br>
+                いいねやブックマーク、コメント機能があるので、他ユーザーさんの計画を参考にすることができます。<br>
+				ゲストログインでご利用もいただけます。<br>
+			</p>
+		</div>
+		<h2 class="section-ttl">新着投稿</h2>
+		<div class="items">
+			<% @plans.each do |plan| %>
+				<%= link_to plan_path(plan) do %>
+					<h5><%= plan.plan_title %></h5>
+					<p><%= plan.purpose %></p>
+					<p><%= plan.purpose_spot %></p>
+					<p><%= plan.budget %> 円</p>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</section>
+

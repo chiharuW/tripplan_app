@@ -1,0 +1,23 @@
+<section class="inner">
+  <h2 class="section-ttl">管理者トップ</h2>
+  <h1 class="admin_top-txt">新着投稿</h1>
+  <table class="admin_items has_border">
+	<thead>
+		<tr>
+		  <th>投稿日</th>
+			<th>タイトル</th>
+			<th>ユーザー名</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @plans.each do |plan| %>
+			<tr>
+				<td class="text-center"><%= plan.created_at %></td>
+				<td><%= link_to plan_title, plan_path(plan), class: "underline" %></td>
+				<td class="text-center"><%= plan.customer.name %></td>
+				<td><%#= link_to plan.customer.name, user_mypage_path(genre_id: item.genre_id) %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+</section>

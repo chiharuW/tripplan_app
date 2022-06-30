@@ -1,0 +1,4 @@
+<section class="inner">
+	<h2 class="section-ttl"><%= @plan.plan_title %>の編集</h2>
+  <%= render 'form', plan: @plan, url: plan_path(@plan), submit: '更新' %>
+</section>
