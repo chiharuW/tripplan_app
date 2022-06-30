@@ -1,0 +1,40 @@
+<tbody>
+  <tr>
+    <td><%= @plan.customer.name %></td>
+    <td><%= @plan.plan_title %></td>
+    <td><%= @plan.departure %></td>
+		<td><%= @plan.arrival %></td>
+		<td><%= @plan.days %></td>
+		<td><%= @plan.budget %></td>
+		<td><%= @plan.purpose %></td>
+		<td><%= @plan.spot_list %></td>
+		<td><%= @plan.purpose_spot %></td>
+		<td><%= @plan.count %></td>
+		<td><%= @plan.action %></td>
+		<td><%= @plan.action_detail %></td>
+		<td><%= @plan.action_date %></td>
+		<td><%= @plan.action_time %></td>
+		<td><%= @plan.cost %></td>
+		<td><%= @plan.cost_sum %></td>
+    <td><%= link_to "編集", edit_plan_path(@plan) %></td>
+    <% if @plan.bookmarked_by?(current_customer) %>
+      <td><%= link_to "ブックマークを外す", plan_bookmarks_path(@plan), method: :delete %></td>
+    <% else %>
+      <td><%= link_to "ブックマーク", plan_bookmarks_path(@plan), method: :post %></td>
+    <% end %>
+  </tr>
+</tbody>
+
+  <% if @plan.favorited_by?(current_customer) %>
+    <p>
+      <%= link_to plan_favorites_path(@plan), method: :delete do %>
+        ♥<%= @plan.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to plan_favorites_path(@plan), method: :post do %>
+        ♡<%= @plan.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>

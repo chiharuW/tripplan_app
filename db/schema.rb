@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_29_073357) do
+ActiveRecord::Schema.define(version: 2022_06_30_092155) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 2022_06_29_073357) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "plan_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_bookmarks_on_customer_id"
+    t.index ["plan_id"], name: "index_bookmarks_on_plan_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -38,6 +47,13 @@ ActiveRecord::Schema.define(version: 2022_06_29_073357) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "plan_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "plans", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.string "plan_title", null: false
@@ -45,7 +61,7 @@ ActiveRecord::Schema.define(version: 2022_06_29_073357) do
     t.date "arrival", null: false
     t.integer "days", null: false
     t.integer "budget", null: false
-    t.integer "purpose", null: false
+    t.string "purpose"
     t.string "purpose_spot", null: false
     t.integer "count", null: false
     t.text "spot_list", null: false
@@ -60,4 +76,6 @@ ActiveRecord::Schema.define(version: 2022_06_29_073357) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "bookmarks", "customers"
+  add_foreign_key "bookmarks", "plans"
 end

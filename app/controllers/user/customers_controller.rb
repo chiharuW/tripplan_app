@@ -3,6 +3,8 @@ class User::CustomersController < ApplicationController
   before_action :set_current_customer
 
   def show
+    @plans = Plan.where(customer_id: current_customer.id)
+    @bookmarks = Bookmark.where(customer_id: current_customer.id)
   end
 
   def edit

@@ -1,0 +1,11 @@
+		<h2 class="section-ttl">投稿一覧</h2>
+		<div class="plans">
+			<% @plans.each do |plan| %>
+				<%= link_to plan_path(plan) do %>
+					<h5><%= plan.plan_title %></h5>
+				<% end %>
+				  <p><%= plan.customer.name %></p>
+					<p><%= plan.purpose_spot %></p>
+					<p><%= plan.budget %> 円</p>
+			<% end %>
+		</div>

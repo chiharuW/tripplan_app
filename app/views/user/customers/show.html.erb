@@ -26,9 +26,50 @@
 		</tbody>
 	</table>
 
-<h3>投稿一覧（下書き含む）</h3>
-<%= link_to '詳細', edit_information_path %>
-<%= link_to '編集', edit_information_path %>
 
-<h3>ブクマ一覧</h3>
-<%= link_to '詳細', edit_information_path %>
+<h3>投稿一覧（下書き含む)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>本文</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @plans.each do |plan| %>
+      <tr>
+        <td>
+          <%= link_to plan_path(plan) do %>
+            <%= plan.plan_title %>
+          <% end %>
+        </td>
+        <td><%#= bookmark.post.body %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<h3>ブックマーク一覧</h3>
+ <table>
+  <thead>
+    <tr>
+      <th>投稿者名</th>
+      <th>タイトル</th>
+      <th>本文</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bookmarks.each do |bookmark| %>
+      <tr>
+        <td><%= bookmark.plan.customer.name %></td>
+        <td>
+          <%= link_to plan_path(bookmark.plan) do %>
+            <%= bookmark.plan.plan_title %>
+          <% end %>
+        </td>
+        <td><%#= bookmark.post.body %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

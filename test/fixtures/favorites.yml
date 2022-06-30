@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customerr_id: 1
+  plan_id: 1
+
+two:
+  customerr_id: 1
+  plan_id: 1

@@ -11,14 +11,14 @@
 			</p>
 		</div>
 		<h2 class="section-ttl">新着投稿</h2>
-		<div class="items">
+		<div class="plans">
 			<% @plans.each do |plan| %>
 				<%= link_to plan_path(plan) do %>
 					<h5><%= plan.plan_title %></h5>
-					<p><%= plan.purpose %></p>
+				<% end %>
+				  <p><%= plan.customer.name %></p>
 					<p><%= plan.purpose_spot %></p>
 					<p><%= plan.budget %> 円</p>
-				<% end %>
 			<% end %>
 		</div>
 	</div>

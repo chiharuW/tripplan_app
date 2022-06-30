@@ -15,7 +15,10 @@ devise_for :customers,skip: [:passwords], controllers: {
    patch 'customers/information' => 'customers#update', as: 'update_information'
    put 'customers/information' => 'customers#update'
    
-   resources :plans
+   resources :plans do
+    resource :bookmarks, only: [:create, :destroy]
+    resource :favorites, only: [:create, :destroy]
+  end
  end
 
 

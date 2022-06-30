@@ -7,7 +7,7 @@ class CreatePlans < ActiveRecord::Migration[6.1]
     	t.date     :arrival,      null: false
     	t.integer  :days,         null: false
     	t.integer  :budget,       null: false
-    	t.integer  :purpose,      null: false 
+    	t.string   :purpose
       t.string   :purpose_spot, null: false
       t.integer  :count,        null: false
       t.text     :spot_list,    null: false
