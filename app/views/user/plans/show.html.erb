@@ -17,11 +17,13 @@
 		<td><%= @plan.cost %></td>
 		<td><%= @plan.cost_sum %></td>
     <td><%= link_to "編集", edit_plan_path(@plan) %></td>
+
     <% if @plan.bookmarked_by?(current_customer) %>
       <td><%= link_to "ブックマークを外す", plan_bookmarks_path(@plan), method: :delete %></td>
     <% else %>
       <td><%= link_to "ブックマーク", plan_bookmarks_path(@plan), method: :post %></td>
     <% end %>
+    
   </tr>
 </tbody>
 

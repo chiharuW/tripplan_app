@@ -1,4 +1,5 @@
 class User::FavoritesController < ApplicationController
+  before_action :authenticate_customer!
   
   def create
     plan = Plan.find(params[:plan_id])
