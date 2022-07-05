@@ -13,7 +13,7 @@
 		<% @plans.each do |plan| %>
 			<tr>
 				<td class="text-center"><%= plan.created_at %></td>
-				<td><%= link_to plan_title, plan_path(plan), class: "underline" %></td>
+				<td><%= link_to plan.plan_title, plan_path(plan), class: "underline" %></td>
 				<td class="text-center"><%= plan.customer.name %></td>
 				<td><%#= link_to plan.customer.name, user_mypage_path(genre_id: item.genre_id) %></td>
 			</tr>

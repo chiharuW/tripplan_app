@@ -35,8 +35,22 @@
                     </td>
 				</tr>
 				<tr>
+					<td>重要視ポイント</td>
+		        <%#= form_for @important_point do |f| %>
+					<td><%#= f.text_field :important_point_1 %>
+					    <%#= f.text_field :important_point_2 %>
+					    <%#= f.text_field :important_point_3 %>
+					    <%#= f.text_field :important_point_4 %>
+					    <%#= f.text_field :important_point_5 %>
+					    <%#= f.submit "決定", class: "btn btn-primary" %>
+			    <%# end %>
+					    </td>
+
+				</tr>
+				<tr>
 					<td><%= f.label :spot_list, "候補地リスト" %></td>
 					<td><%= f.text_field :spot_list %></td>
+					<td><%#= plan.important_point_1 %></td>
 				</tr>
 				<tr>
 					<td><%= f.label :purpose_spot, "目的地" %></td>
@@ -77,8 +91,5 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="flex align-center pl5">
-			<%= f.submit submit, class: "btn btn-primary" %>
-		</div>
 	</div>
 <% end %>

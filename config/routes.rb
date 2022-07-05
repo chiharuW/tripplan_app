@@ -12,12 +12,17 @@ devise_for :customers,skip: [:passwords], controllers: {
    get 'customers/about' => 'homes#about', as: 'about'
    get 'customers/mypage' => 'customers#show', as: 'mypage'
    get 'customers/information/edit' => 'customers#edit', as: 'edit_information'
-   patch 'customers/information' => 'customers#update', as: 'update_information'
-   put 'customers/information' => 'customers#update'
-   
+    patch 'customers/information' => 'customers#update', as: 'update_information'
+    put 'customers/information' => 'customers#update'
+   get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'confirm_unsubscribe'
+    patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw_customer'
+    put 'customers/withdraw' => 'customers#withdraw'
+    
    resources :plans do
     resource :bookmarks, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
+    resources :post_comments, only: [:create, :destroy]
+    resources :important_points, only: [:create, :destroy]
   end
  end
 

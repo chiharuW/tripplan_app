@@ -18,6 +18,7 @@ class CreatePlans < ActiveRecord::Migration[6.1]
       t.string   :action_detail,null: false
       t.date     :action_date,  null: false
       t.time     :action_time,  null: false
+      t.boolean  :is_draft, null: false, default: true
       t.timestamps
     end
   end

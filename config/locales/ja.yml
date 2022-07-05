@@ -1,16 +1,16 @@
-  # ja:
-  #   enums:
-  #     plan:
-  #       purpose:
-  #         yukkurinonbiri: "ゆっくりのんびり"
-  #         gurume: "グルメ"
-  #         activity: "アクティビティ"
-  #         onsen: "温泉"
-  #         sansaku: "散策"
-  #         bae: "映え"
-  #         kankou: "観光"
-  #         refresh: "リフレッシュ"
-  #         deai: "出会いを求めて"
+  ja:
+    enums:
+      plan:
+        purpose:
+          yukkurinonbiri: "ゆっくりのんびり"
+          gurume: "グルメ"
+          activity: "アクティビティ"
+          onsen: "温泉"
+          sansaku: "散策"
+          bae: "映え"
+          kankou: "観光"
+          refresh: "リフレッシュ"
+          deai: "出会いを求めて"
 
     devise:
     failure:

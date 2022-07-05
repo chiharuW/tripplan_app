@@ -8,7 +8,6 @@ class User::CustomersController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
@@ -17,6 +16,15 @@ class User::CustomersController < ApplicationController
    else
      render :edit
    end
+  end
+  
+  def unsubscribe
+  end
+
+  def withdraw
+    @customer.update(is_active: false)
+    reset_session
+    redirect_to root_path
   end
 
  private

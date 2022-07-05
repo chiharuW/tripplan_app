@@ -16,27 +16,49 @@
 		<td><%= @plan.action_time %></td>
 		<td><%= @plan.cost %></td>
 		<td><%= @plan.cost_sum %></td>
-    <td><%= link_to "編集", edit_plan_path(@plan) %></td>
+
+    <% if @plan.customer_id == current_customer %>
+      <td><%= link_to "編集", edit_plan_path(@plan), class: "btn btn-success" %></td>
+    <% end %>
 
     <% if @plan.bookmarked_by?(current_customer) %>
-      <td><%= link_to "ブックマークを外す", plan_bookmarks_path(@plan), method: :delete %></td>
+      <td><%= link_to "ブックマークを外す", plan_bookmarks_path(@plan), method: :delete, class: "btn btn-outline-info" %></td>
     <% else %>
-      <td><%= link_to "ブックマーク", plan_bookmarks_path(@plan), method: :post %></td>
+      <td><%= link_to "ブックマーク", plan_bookmarks_path(@plan), method: :post, class: "btn btn-info" %></td>
     <% end %>
-    
+
   </tr>
 </tbody>
 
   <% if @plan.favorited_by?(current_customer) %>
     <p>
-      <%= link_to plan_favorites_path(@plan), method: :delete do %>
+      <%= link_to plan_favorites_path(@plan), method: :delete, class: "btn btn-info" do %>
         ♥<%= @plan.favorites.count %> いいね
       <% end %>
     </p>
     <% else %>
     <p>
-      <%= link_to plan_favorites_path(@plan), method: :post do %>
+      <%= link_to plan_favorites_path(@plan), method: :post, class: "btn btn-outline-info" do %>
         ♡<%= @plan.favorites.count %> いいね
       <% end %>
     </p>
   <% end %>
+
+  <div>
+  <p>コメント件数：<%= @plan.post_comments.count %></p>
+  <% @plan.post_comments.each do |post_comment| %>
+    <p><%#= image_tag post_comment.user.get_profile_image(100,100) %></p>
+    <%= post_comment.customer.name %>
+    <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+    <%= post_comment.comment %>
+   <% if post_comment.customer == current_customer %>
+     <%= link_to "削除", plan_post_comment_path(post_comment.plan, post_comment), method: :delete %>
+   <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@plan, @post_comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>

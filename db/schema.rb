@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_30_092155) do
+ActiveRecord::Schema.define(version: 2022_07_04_085124) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(version: 2022_06_30_092155) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "important_points", force: :cascade do |t|
+    t.string "important_point_1"
+    t.string "important_point_2"
+    t.string "important_point_3"
+    t.string "important_point_4"
+    t.string "important_point_5"
+    t.integer "plan_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "plans", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.string "plan_title", null: false
@@ -72,6 +83,15 @@ ActiveRecord::Schema.define(version: 2022_06_30_092155) do
     t.string "action_detail", null: false
     t.date "action_date", null: false
     t.time "action_time", null: false
+    t.boolean "is_draft", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_comments", force: :cascade do |t|
+    t.text "comment"
+    t.integer "customer_id"
+    t.integer "plan_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

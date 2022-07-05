@@ -43,7 +43,7 @@
             <%= plan.plan_title %>
           <% end %>
         </td>
-        <td><%#= bookmark.post.body %></td>
+        <td><%= link_to "#{plan.post_comments.count} コメント", plan_path(plan.id) %></td>
       </tr>
     <% end %>
   </tbody>

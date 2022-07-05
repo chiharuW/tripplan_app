@@ -7,5 +7,6 @@
 				  <p><%= plan.customer.name %></p>
 					<p><%= plan.purpose_spot %></p>
 					<p><%= plan.budget %> 円</p>
+					<p><%= link_to "#{plan.post_comments.count} コメント", plan_path(plan.id) %></p>
 			<% end %>
 		</div>
