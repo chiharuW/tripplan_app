@@ -43,4 +43,4 @@
       plan:
        attributes:
         customer:
-         required: "ユーザーモデルのカスタマー属性が必要です？"
+         required: "Planモデルのカスタマー属性が必要です？"

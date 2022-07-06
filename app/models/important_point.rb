@@ -1,4 +1,4 @@
 class ImportantPoint < ApplicationRecord
-  belongs_to :plan 
+  belongs_to :plan
   
 end

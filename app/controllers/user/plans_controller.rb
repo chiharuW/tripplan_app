@@ -8,6 +8,7 @@ class User::PlansController < ApplicationController
   def create
     # @important_point = ImportantPoint.new
     @plan = Plan.new(plan_params)
+
     # 投稿ボタンを押下した場合
     if params[:post]
       if @plan.save(context: :publicize)
@@ -18,13 +19,13 @@ class User::PlansController < ApplicationController
     # 下書きボタンを押下した場合
     else
       if @plan.update(is_draft: true)
-        redirect_to customer_path(current_customer), notice: "下書き保存しました！"
+        redirect_to  mypage_path(current_customer), notice: "下書き保存しました！"
       else
         render :new, alert: "登録できませんでした。入力内容をご確認のうえ再度お試しください"
       end
     end
   end
-    
+
   def index
     @plans = Plan.all
   end
@@ -36,11 +37,6 @@ class User::PlansController < ApplicationController
 
   def edit
     @plan = Plan.find(params[:id])
-    if @plan.customer == current_customer
-       render "edit"
-    else
-       redirect_to plans_path
-    end
   end
 
   def update
@@ -74,10 +70,18 @@ class User::PlansController < ApplicationController
     end
   end
 
+  def destroy
+    @plan = Plan.find(params[:id])
+    @plan.destroy
+    redirect_to plans_path
+  end
+
+
   private
 
   def plan_params
-    params.require(:plan).permit(:customer_id, :plan_title, :departure, :arrival, :days, :budget, :purpose_spot, :count, :spot_list, :memo, :cost, :cost_sum, :action, :action_detail, :action_date, :action_time, :is_draft, purpose:[])
+    params.require(:plan).permit(:plan_title, :departure, :arrival, :days, :budget, :purpose_spot, :count, :spot_list, :memo, :cost, :cost_sum, :action, :action_detail, :action_date, :action_time, purpose:[]).merge(customer_id: current_customer.id)
+
   end
 
 end

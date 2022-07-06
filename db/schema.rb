@@ -68,22 +68,22 @@ ActiveRecord::Schema.define(version: 2022_07_04_085124) do
   create_table "plans", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.string "plan_title", null: false
-    t.date "departure", null: false
-    t.date "arrival", null: false
-    t.integer "days", null: false
-    t.integer "budget", null: false
+    t.date "departure"
+    t.date "arrival"
+    t.integer "days"
+    t.integer "budget"
     t.string "purpose"
-    t.string "purpose_spot", null: false
-    t.integer "count", null: false
-    t.text "spot_list", null: false
-    t.text "memo", null: false
-    t.integer "cost", null: false
-    t.integer "cost_sum", null: false
-    t.string "action", null: false
-    t.string "action_detail", null: false
-    t.date "action_date", null: false
-    t.time "action_time", null: false
-    t.boolean "is_draft", default: true, null: false
+    t.string "purpose_spot"
+    t.integer "count"
+    t.text "spot_list"
+    t.text "memo"
+    t.integer "cost"
+    t.integer "cost_sum"
+    t.string "action"
+    t.string "action_detail"
+    t.date "action_date"
+    t.time "action_time"
+    t.boolean "is_draft", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

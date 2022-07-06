@@ -12,8 +12,8 @@ class Plan < ApplicationRecord
   def favorited_by?(customer)
    favorites.where(customer_id: customer).exists?
   end
-  
-   with_options presence: true, on: :publicize do
+
+  with_options presence: true, on: :publicize do
     validates :plan_title
     validates :departure
     validates :arrival
@@ -33,5 +33,5 @@ class Plan < ApplicationRecord
   end
   validates :plan_title, length: { maximum: 14 }, on: :publicize
 
-  #enum purpose: { yukkurinonbiri: 0, gurume: 1, activity: 2, onsen: 3, sansaku: 4, bae: 5, kankou: 6, refresh: 7, deai: 8 }
+  enum purpose: { yukkurinonbiri: 0, gurume: 1, activity: 2, onsen: 3, sansaku: 4, bae: 5, kankou: 6, refresh: 7, deai: 8 }
 end

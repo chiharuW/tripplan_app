@@ -1,4 +1,113 @@
 <section class="inner">
 	<h2 class="section-ttl"><%= @plan.plan_title %>の編集</h2>
-  <%= render 'form', plan: @plan, url: plan_path(@plan), submit: '更新' %>
+  <%= form_with model: @plan do |f| %>
+	 <%= render 'layouts/error_messages', resource: @plan %>
+
+		<table class="plan_info plan_form">
+			<thead>
+				<tr>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= f.label :plan_title, "タイトル" %></td>
+					<td><%= f.text_field :plan_title %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :departure, "出発日" %></td>
+					<td><%= f.date_field :departure, rows: 3 %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :arrival, "到着日" %></td>
+					<td><%= f.date_field :arrival, rows: 3 %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :days, "泊数" %></td>
+					<td><%= f.number_field :days, in: 1..30 %> 泊</td>
+				</tr>
+				<tr>
+					<td><%= f.label :budget, "予算" %></td>
+					<td><%= f.number_field :budget,in: 10000..100000, step: 5000 %> 円</td>
+				</tr>
+				<tr>
+					<td><%= f.label :purpose, "目的" %></td>
+                    <td><% ["ゆっくりのんびり","グルメ","アクティビティ","温泉","散策","映え","観光","リフレッシュ","出会いを求めて"].each do |purpose| %>
+                        <%= f.check_box :purpose, {multiple: true}, purpose, nil %>
+                        <%= purpose %>
+                        <% end %>
+                    </td>
+				</tr>
+				<tr>
+					<td>重要視ポイント</td>
+		        <%#= form_for @important_point do |f| %>
+					<td><%#= f.text_field :important_point_1 %>
+					    <%#= f.text_field :important_point_2 %>
+					    <%#= f.text_field :important_point_3 %>
+					    <%#= f.text_field :important_point_4 %>
+					    <%#= f.text_field :important_point_5 %>
+					    <%#= f.submit "決定", class: "btn btn-primary" %>
+			    <%# end %>
+					    </td>
+
+				</tr>
+				<tr>
+					<td><%= f.label :spot_list, "候補地リスト" %></td>
+					<td><%= f.text_field :spot_list %></td>
+					<td><%#= plan.important_point_1 %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :purpose_spot, "目的地" %></td>
+					<td><%= f.text_field :purpose_spot %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :memo, "メモ" %></td>
+					<td><%= f.text_area :memo %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :count, "人数" %></td>
+					<td><%= f.number_field :count, in: 1..20 %> 人</td>
+				</tr>
+
+				<tr>
+					<td><%= f.label :action, "行動項目選択" %></td>
+					<td><%= f.text_field :action %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :action_detail, "行動内容" %></td>
+					<td><%= f.text_field :action_detail %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :action_date, "日付" %></td>
+					<td><%= f.date_field :action_date %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :action_time, "時間" %></td>
+					<td><%= f.time_field :action_time %></td>
+				</tr>
+				<tr>
+					<td><%= f.label :cost, "費用" %></td>
+					<td><%= f.number_field :cost %> 円</td>
+				</tr>
+				<tr>
+					<td><%= f.label :cost_sum, "合計" %></td>
+					<td><%= f.number_field :cost_sum %> 円</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+    <div class="row mt-4">
+      <div class="form-inline mx-auto">
+        <% if @plan.is_draft == true %>
+          <%= f.submit "レシピを公開", :name => 'publicize_draft', class:'mr-5 btn btn-sm btn-warning' %>
+          <%= f.submit "下書きを更新", :name => 'update_draft', class:'mr-5 btn btn-sm btn-outline-secondary' %>
+        <% else %>
+          <%= f.submit "レシピを更新", :name => 'update_post', class:'btn btn-sm btn-warning text-light' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="mt-4 pb-3 text-center">
+      <u><%= link_to "レシピを削除", "/plans/#{@plan.id}", method: :delete, data: {confirm: "このレシピを削除しますか？"}, class:'text-danger' %></u>
+    </div>
+  <% end %>
+
 </section>

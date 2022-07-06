@@ -1,7 +1,7 @@
 <tbody>
   <tr>
     <td><%= @plan.customer.name %></td>
-    <td><%= @plan.plan_title %></td>
+    <td><%= link_to @plan.plan_title,edit_plan_path(@plan) %></td>
     <td><%= @plan.departure %></td>
 		<td><%= @plan.arrival %></td>
 		<td><%= @plan.days %></td>
@@ -46,6 +46,7 @@
 
   <div>
   <p>コメント件数：<%= @plan.post_comments.count %></p>
+
   <% @plan.post_comments.each do |post_comment| %>
     <p><%#= image_tag post_comment.user.get_profile_image(100,100) %></p>
     <%= post_comment.customer.name %>
