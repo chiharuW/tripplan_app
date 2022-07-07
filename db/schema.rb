@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_04_085124) do
+ActiveRecord::Schema.define(version: 2022_07_07_050344) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 2022_07_04_085124) do
     t.date "arrival"
     t.integer "days"
     t.integer "budget"
-    t.string "purpose"
+    t.string "purposes"
     t.string "purpose_spot"
     t.integer "count"
     t.text "spot_list"
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2022_07_04_085124) do
     t.string "action_detail"
     t.date "action_date"
     t.time "action_time"
-    t.boolean "is_draft", default: true
+    t.boolean "is_draft", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -96,6 +96,24 @@ ActiveRecord::Schema.define(version: 2022_07_04_085124) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "post_tags", force: :cascade do |t|
+    t.integer "plan_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_id", "tag_id"], name: "index_post_tags_on_plan_id_and_tag_id", unique: true
+    t.index ["plan_id"], name: "index_post_tags_on_plan_id"
+    t.index ["tag_id"], name: "index_post_tags_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "bookmarks", "customers"
   add_foreign_key "bookmarks", "plans"
+  add_foreign_key "post_tags", "plans"
+  add_foreign_key "post_tags", "tags"
 end

@@ -1,47 +1,50 @@
 <section class="inner">
-	<h2 class="section-ttl">新規投稿</h2>
+
+<h2 class="section-ttl">新規投稿</h2>
+
 <%= flash[:notice] %>
+<%= form_with(model: @plan, url: plans_path, local: true) do |f| %>
+ <%= render 'layouts/error_messages', resource: @plan %>
 
-
-    <%= form_with(model: @plan, url: plans_path, local: true) do |f| %>
-	<%= render 'layouts/error_messages', resource: @plan %>
-		<table class="plan_info plan_form">
-			<thead>
-				<tr>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><%= f.label :plan_title, "タイトル" %></td>
-					<td><%= f.text_field :plan_title %></td>
-				</tr>
-				<tr>
-					<td><%= f.label :departure, "出発日" %></td>
-					<td><%= f.date_field :departure, rows: 3 %></td>
-				</tr>
-				<tr>
-					<td><%= f.label :arrival, "到着日" %></td>
-					<td><%= f.date_field :arrival, rows: 3 %></td>
-				</tr>
-				<tr>
-					<td><%= f.label :days, "泊数" %></td>
-					<td><%= f.number_field :days, in: 1..30 %> 泊</td>
-				</tr>
-				<tr>
-					<td><%= f.label :budget, "予算" %></td>
-					<td><%= f.number_field :budget,in: 10000..100000, step: 5000 %> 円</td>
-				</tr>
-				<tr>
-					<td><%= f.label :purpose, "目的" %></td>
-                    <td><% ["ゆっくりのんびり","グルメ","アクティビティ","温泉","散策","映え","観光","リフレッシュ","出会いを求めて"].each do |purpose| %>
-                        <%= f.check_box :purpose, {multiple: true}, purpose, nil %>
-                        <%= purpose %>
-                        <% end %>
-                    </td>
-				</tr>
-				<tr>
-					<td>重要視ポイント</td>
-		        <%#= form_for @important_point do |f| %>
+<table class="plan_info plan_form">
+	<thead>
+   <tr>
+	 </tr>
+	</thead>
+	<tbody>
+	 <tr>
+		<td><%= f.label :plan_title, "タイトル" %></td>
+		<td><%= f.text_field :plan_title %></td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :departure, "出発日" %></td>
+		<td><%= f.date_field :departure, rows: 3 %></td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :arrival, "到着日" %></td>
+		<td><%= f.date_field :arrival, rows: 3 %></td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :days, "泊数" %></td>
+		<td><%= f.number_field :days, in: 1..30 %> 泊</td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :budget, "予算" %></td>
+		<td><%= f.number_field :budget,in: 10000..100000, step: 5000 %> 円</td>
+	 </tr>
+	 <tr>
+	  <td><%= f.label :purpose, "目的" %></td>
+    <td><% ["ゆっくりのんびり","グルメ","アクティビティ","温泉","散策","映え","観光","リフレッシュ","出会いを求めて"].each.with_index do |purpose,i| %>
+         <label>
+          <%= check_box_tag 'plan[purposes][]', purpose,false,id:"plan_purposes_#{i}"%>
+          <%= purpose %>
+         </label>
+       <% end %>
+    </td>
+	 </tr>
+	 <tr>
+		<td>重要視ポイント</td>
+	        <%#= form_for @important_point do |f| %>
 					<td><%#= f.text_field :important_point_1 %>
 					    <%#= f.text_field :important_point_2 %>
 					    <%#= f.text_field :important_point_3 %>
@@ -51,59 +54,65 @@
 			    <%# end %>
 					    </td>
 
-				</tr>
-				<tr>
-					<td><%= f.label :spot_list, "候補地リスト" %></td>
-					<td><%= f.text_field :spot_list %></td>
-					<td><%#= plan.important_point_1 %></td>
-				</tr>
-				<tr>
-					<td><%= f.label :purpose_spot, "目的地" %></td>
-					<td><%= f.text_field :purpose_spot %></td>
-				</tr>
-				<tr>
-					<td><%= f.label :memo, "メモ" %></td>
-					<td><%= f.text_area :memo %></td>
-				</tr>
-				<tr>
-					<td><%= f.label :count, "人数" %></td>
-					<td><%= f.number_field :count, in: 1..20 %> 人</td>
-				</tr>
+	 </tr>
+	 <tr>
+		<td><%= f.label :spot_list, "候補地リスト" %></td>
+		<td><%= f.text_field :spot_list %></td>
+		<td><%#= plan.important_point_1 %></td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :purpose_spot, "目的地" %></td>
+		<td><%= f.text_field :purpose_spot %></td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :memo, "メモ" %></td>
+		<td><%= f.text_area :memo %></td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :count, "人数" %></td>
+		<td><%= f.number_field :count, in: 1..20 %> 人</td>
+	 </tr>
+   <tr>
+		<td><%= f.label :action, "行動項目選択" %></td>
+		<td><%= f.text_field :action %></td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :action_detail, "行動内容" %></td>
+		<td><%= f.text_field :action_detail %></td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :action_date, "日付" %></td>
+		<td><%= f.date_field :action_date %></td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :action_time, "時間" %></td>
+		<td><%= f.time_field :action_time %></td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :cost, "費用" %></td>
+		<td><%= f.number_field :cost %> 円</td>
+	 </tr>
+	 <tr>
+		<td><%= f.label :cost_sum, "合計" %></td>
+		<td><%= f.number_field :cost_sum %> 円</td>
+	 </tr>
+	</tbody>
+</table>
 
-				<tr>
-					<td><%= f.label :action, "行動項目選択" %></td>
-					<td><%= f.text_field :action %></td>
-				</tr>
-				<tr>
-					<td><%= f.label :action_detail, "行動内容" %></td>
-					<td><%= f.text_field :action_detail %></td>
-				</tr>
-				<tr>
-					<td><%= f.label :action_date, "日付" %></td>
-					<td><%= f.date_field :action_date %></td>
-				</tr>
-				<tr>
-					<td><%= f.label :action_time, "時間" %></td>
-					<td><%= f.time_field :action_time %></td>
-				</tr>
-				<tr>
-					<td><%= f.label :cost, "費用" %></td>
-					<td><%= f.number_field :cost %> 円</td>
-				</tr>
-				<tr>
-					<td><%= f.label :cost_sum, "合計" %></td>
-					<td><%= f.number_field :cost_sum %> 円</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
+<div class="field">
+ <%= f.label"タグ (,で区切ると複数タグ登録できます)" %>
+ <%= f.text_field :name,value: @tag_list,class:"form-control"%>
+</div>
+  
   <div class="row mt-4 pb-5">
     <div class="form-inline mx-auto">
       <%= f.submit '計画を公開', :name => 'post', class: 'mr-5 btn btn-sm btn-warning text-white' %>
       <%= f.submit '下書きに保存', :name => 'draft', class: 'mr-5 btn btn-sm btn-outline-secondary' %>
     </div>
   </div>
-<% end %>
 
+ <% end %>
+  
+  
+  
 </section>

@@ -9,9 +9,12 @@ class User::PlansController < ApplicationController
     # @important_point = ImportantPoint.new
     @plan = Plan.new(plan_params)
 
+    tag_list = params[:plan][:name].split(',')
+
     # 投稿ボタンを押下した場合
     if params[:post]
       if @plan.save(context: :publicize)
+         @post.save_tag(tag_list)
         redirect_to plan_path(@plan), notice: "計画を投稿しました！"
       else
         render :new, alert: "登録できませんでした。入力内容をご確認のうえ再度お試しください"
@@ -28,25 +31,31 @@ class User::PlansController < ApplicationController
 
   def index
     @plans = Plan.all
+    # @posts = Post.page(params[:page]).per(10)
+    @tag_list=Tag.all
   end
 
   def show
     @plan = Plan.find(params[:id])
     @post_comment = PostComment.new
+    @post_tags = @plan.tags
   end
 
   def edit
     @plan = Plan.find(params[:id])
+    @tag_list = @plan.tags.pluck(:name).join(',')
   end
 
   def update
     @plan = Plan.find(params[:id])
-    # ①下書きレシピの更新（公開）の場合
+    tag_list=params[:plan][:name].split(',')
+        # ①下書きレシピの更新（公開）の場合
     if params[:publicize_draft]
       # レシピ公開時にバリデーションを実施
       # updateメソッドにはcontextが使用できないため、公開処理にはattributesとsaveメソッドを使用する
       @plan.attributes = plan_params.merge(is_draft: false)
       if @plan.save(context: :publicize)
+         @post.save_tag(tag_list)
         redirect_to plan_path(@plan.id), notice: "下書きを公開しました！"
       else
         @plan.is_draft = true
@@ -56,6 +65,7 @@ class User::PlansController < ApplicationController
     elsif params[:update_post]
       @plan.attributes = plan_params
       if @plan.save(context: :publicize)
+         @post.save_tag(tag_list)
         redirect_to plan_path(@plan.id), notice: "レシピを更新しました！"
       else
         render :edit, alert: "レシピを更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
@@ -80,7 +90,7 @@ class User::PlansController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(:plan_title, :departure, :arrival, :days, :budget, :purpose_spot, :count, :spot_list, :memo, :cost, :cost_sum, :action, :action_detail, :action_date, :action_time, purpose:[]).merge(customer_id: current_customer.id)
+    params.require(:plan).permit(:plan_title, :departure, :arrival, :days, :budget, :purpose_spot, :count, :spot_list, :memo, :cost, :cost_sum, :action, :action_detail, :action_date, :action_time, :tags, :checkbox,purposes:[]).merge(customer_id: current_customer.id)
 
   end
 

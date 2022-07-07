@@ -7,7 +7,7 @@ class CreatePlans < ActiveRecord::Migration[6.1]
     	t.date     :arrival
     	t.integer  :days
     	t.integer  :budget
-    	t.string   :purpose
+    	t.string   :purposes
       t.string   :purpose_spot
       t.integer  :count
       t.text     :spot_list
@@ -18,7 +18,7 @@ class CreatePlans < ActiveRecord::Migration[6.1]
       t.string   :action_detail
       t.date     :action_date
       t.time     :action_time
-      t.boolean  :is_draft, default: true
+      t.boolean  :is_draft, default: false
       t.timestamps
     end
   end
