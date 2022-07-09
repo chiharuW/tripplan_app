@@ -17,5 +17,5 @@
 <%="(#{list.plans.count})" %><% end %>
 
 投稿一覧画面で投稿に紐づくタグを表示
-<% @plans.each do |post| %>
+<% @plans.each do |plan| %>
 <i class="fas fa-tag"><%= plan.tags.map(&:name).join(', ') %></i>

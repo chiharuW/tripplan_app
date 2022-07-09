@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
 # 顧客用
 # URL /customers/sign_in ...
 devise_for :customers,skip: [:passwords], controllers: {
@@ -17,12 +17,13 @@ devise_for :customers,skip: [:passwords], controllers: {
    get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'confirm_unsubscribe'
     patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw_customer'
     put 'customers/withdraw' => 'customers#withdraw'
-    
+
    resources :plans do
     resource :bookmarks, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
     resources :post_comments, only: [:create, :destroy]
     resources :important_points, only: [:create, :destroy]
+    resources :tags, only: [:index, :show, :destroy]
   end
  end
 
