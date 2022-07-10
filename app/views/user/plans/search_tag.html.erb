@@ -1,0 +1,38 @@
+<div class="container">
+<h5>タグが<%=@tag.name%>の投稿一覧</h5>
+
+<!--タグリスト-->
+<% @tag_list.each do |list|%>
+<%=link_to list.name,search_tag_path(tag_id: list.id) %>
+<%="(#{list.plans.count})" %><% end %>
+
+<% @plans.each do |plan| %>
+<!--投稿はカードで囲む-->
+<div class="card">
+  <div class="card-body">
+    <h6 class="card-title">
+      <%=link_to plan_path(plan.id) do %><%= plan.plan_title %>
+      <% end %>
+    </h6>
+
+
+  </div>
+</div>
+<% end %>
+
+
+
+<style>
+.card{
+  padding:0;
+  margin:0;
+  border:none;
+}
+
+
+
+h6 {
+  /*線の種類（実線） 太さ 色*/
+  border-bottom: solid 3px black;
+}
+</style>

@@ -1,73 +1,72 @@
 <div class="inner bg-light">
 
-<h3 class="section-ttl text-center text-dark pt-4"><%= @plan.plan_title %>詳細</h3>
-<h5 class="text-center pt-1 pb-3" >by <%= @plan.customer.name %></h5>
+ <h3 class="section-ttl text-center text-dark pt-4"><%= @plan.plan_title %>詳細</h3>
+ <h5 class="text-center pt-1 pb-3" >by <%= @plan.customer.name %></h5>
 
- <div class="container table-responsive">
-	<table class="table-bordered mx-auto table col-md-8">
-	 <tr>
-		<td class= "col-md-1 table-secondary">出発日</td>
-		<td class= "col-md-1 table-light"></td><%= @plan.departure %></td>
-		<td class= "col-md-1 table-secondary">到着日</td>
-		<td class= "col-md-1 table-light"><%= @plan.arrival %></td>
-		<td class= "col-md-1 table-secondary">泊数</td>
-		<td class= "col-md-1 table-light"><%= @plan.days %></td>
-	 <tr>
+  <div class="container table-responsive">
+	 <table class="table-bordered mx-auto table col-md-8">
+	  <tr>
+		  <td class= "col-md-1 table-secondary">出発日</td>
+		  <td class= "col-md-1 table-light"><%= @plan.departure %></td>
+		  <td class= "col-md-1 table-secondary">到着日</td>
+		  <td class= "col-md-1 table-light"><%= @plan.arrival %></td>
+		  <td class= "col-md-1 table-secondary">泊数</td>
+		  <td class= "col-md-1 table-light"><%= @plan.days %>泊</td>
+	  <tr>
    	<td class= "col-md-1 table-secondary">予算</td>
-		<td class= "col-md-1 table-light"></td><%= @plan.budget %></td>
-		<td class= "col-md-1 table-secondary">人数</td>
-    <td class= "col-md-1 table-light"><%= @plan.count %></td>
-	 </tr>
+		  <td class= "col-md-1 table-light"><%= @plan.budget %>円</td>
+		  <td class= "col-md-1 table-secondary">人数</td>
+    <td class= "col-md-1 table-light"><%= @plan.count %>人</td>
+	  </tr>
    <tr>
-		<td class= "col-md-1 table-secondary">目的</td>
-		<td colspan="6", class="table-light"><%= @plan.purposes %></td>
-	 </tr>
-	 <tr>
-		<td class= "col-md-1 table-secondary">目的地</td>
+		  <td class= "col-md-1 table-secondary">目的</td>
+		  <td colspan="6", class="table-light"><%= @plan.purposes %></td>
+	  </tr>
+	  <tr>
+		  <td class= "col-md-1 table-secondary">目的地</td>
     <td colspan="6", class="table-light"><%= @plan.purpose_spot %></td>
-	 </tr>
+	  </tr>
    <tr>
-	  <td class= "col-md-1 table-secondary">行動予定</td>
-		<td class= "col-md-1 table-light"><%= @plan.action %></td>
-		<td class= "col-md-1 table-light"><%= @plan.action_date %></td>
-		<td colspan="4", class="table-light"><%= @plan.action_detail %></td>
-	 </tr>
-	</table>
-
-	<div class="col-md-2">タグ</div>
+	   <td class= "col-md-1 table-secondary">行動予定</td>
+		  <td class= "col-md-1 table-light"><%= @plan.action %></td>
+		  <td class= "col-md-1 table-light"><%= @plan.action_date %></td>
+		  <td colspan="4", class="table-light"><%= @plan.action_detail %></td>
+	  </tr>
+	 </table>
+	 <div class="col-md-2">タグ</div>
    <% @post_tags.each do |tag| %>
-    <%= tag.name %> <%= "(#{tag.plans.count})" %>
+    <%= link_to tag.name,search_tag_path(tag_id: tag.id)%><%="(#{tag.plans.count})" %>
    <% end %>
   </div>
 
-<div class="row mt-4 pb-5">
-<div class="form-inline mx-auto">
- <% if @plan.customer == current_customer %>
-  <%= link_to "編集する", edit_plan_path, class: "mr-5 btn btn-success" %>
- <% end %>
- <!--ブックマーク-->
- <% if @plan.bookmarked_by?(current_customer) %>
-  <%= link_to "ブックマークを外す", plan_bookmarks_path(@plan), method: :delete, class: "btn btn-sm btn-outline-info" %>
- <% else %>
-  <%= link_to "ブックマーク", plan_bookmarks_path(@plan), method: :post, class: "btn btn-sm btn-info" %>
- <% end %>
+  <div class="row mt-4 pb-5">
+   <div class="form-inline mx-auto">
+    <% if @plan.customer == current_customer %>
+     <%= link_to "編集する", edit_plan_path, class: "mr-5 btn btn-success" %>
+    <% end %>
+    <!--ブックマーク-->
+    <% if @plan.bookmarked_by?(current_customer) %>
+     <%= link_to "ブックマークを外す", plan_bookmarks_path(@plan), method: :delete, class: "btn btn-sm btn-outline-info" %>
+    <% else %>
+     <%= link_to "ブックマーク", plan_bookmarks_path(@plan), method: :post, class: "btn btn-sm btn-info" %>
+    <% end %>
 
-<!--いいね-->
- <% if @plan.favorited_by?(current_customer) %>
-  <%= link_to plan_favorites_path(@plan), method: :delete, class: "ml-3 btn btn-sm btn-info" do %>
-   ♥<%= @plan.favorites.count %> いいね
-  <% end %>
- <% else %>
-  <%= link_to plan_favorites_path(@plan), method: :post, class: "ml-3 btn btn-sm btn-outline-info" do %>
-   ♡<%= @plan.favorites.count %> いいね
-  <% end %>
- <% end %>
-</div>
-</div>
+    <!--いいね-->
+    <% if @plan.favorited_by?(current_customer) %>
+     <%= link_to plan_favorites_path(@plan), method: :delete, class: "ml-3 btn btn-sm btn-info" do %>
+      ♥<%= @plan.favorites.count %> いいね
+     <% end %>
+    <% else %>
+     <%= link_to plan_favorites_path(@plan), method: :post, class: "ml-3 btn btn-sm btn-outline-info" do %>
+      ♡<%= @plan.favorites.count %> いいね
+     <% end %>
+    <% end %>
+   </div>
+  </div>
 
-<div class="row justify-content-center pb-5">
-  <div class="col-md-3">
-   <p>コメント件数：<%= @plan.post_comments.count %></p>
+  <div class="row justify-content-center pb-5">
+   <div class="col-md-3">
+    <p>コメント件数：<%= @plan.post_comments.count %></p>
     <% @plan.post_comments.each do |post_comment| %>
      <p><%#= image_tag post_comment.user.get_profile_image(100,100) %></p>
      <%= post_comment.customer.name %>
@@ -77,15 +76,13 @@
      <% end %><br>
      <%= post_comment.comment %>
     <% end %>
+   </div>
+   <div class="col-md-3">
+    <%= form_with model: [@plan, @post_comment] do |f| %>
+     <%= f.text_area :comment, :size=>"40x3", placeholder: "コメントをここに" %>
+     <%= f.submit "送信する" , class: "btn btn-sm btn-outline-secondary py-auto" %>
+    <% end %>
+   </div>
   </div>
-  <div class="col-md-3">
-   <%= form_with model: [@plan, @post_comment] do |f| %>
-    <%= f.text_area :comment, :size=>"40x3", placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" , class: "btn btn-sm btn-outline-secondary py-auto" %>
-   <% end %>
-  </div>
-</div>
 
-
- </div>
 </div>

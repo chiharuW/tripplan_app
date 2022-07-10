@@ -17,6 +17,7 @@ devise_for :customers,skip: [:passwords], controllers: {
    get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'confirm_unsubscribe'
     patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw_customer'
     put 'customers/withdraw' => 'customers#withdraw'
+   get "search_tag"=>"plans#search_tag"
 
    resources :plans do
     resource :bookmarks, only: [:create, :destroy]

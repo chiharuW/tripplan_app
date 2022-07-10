@@ -31,8 +31,13 @@ class User::PlansController < ApplicationController
 
   def index
     @plans = Plan.all
-    # @posts = Post.page(params[:page]).per(10)
+    # @plans = Plan.page(params[:page]).per(10)
     @tag_list=Tag.all
+    if params[:plan_title].present?
+      @plans_search = Plan.where('plan_title LIKE ?', "%#{params[:plan_title]}%")
+    else
+      @plans_search = Plan.none
+    end
   end
 
   def show
@@ -49,7 +54,7 @@ class User::PlansController < ApplicationController
   def update
     @plan = Plan.find(params[:id])
     tag_list=params[:plan][:name].split(',')
-        # ①下書きレシピの更新（公開）の場合
+      # ①下書きレシピの更新（公開）の場合
     if params[:publicize_draft]
       # レシピ公開時にバリデーションを実施
       # updateメソッドにはcontextが使用できないため、公開処理にはattributesとsaveメソッドを使用する
@@ -58,7 +63,7 @@ class User::PlansController < ApplicationController
          @old_relations=PostTag.where(plan_id: @plan.id)
           @old_relations.each do |relation|
           relation.delete
-        end  
+        end
          @plan.save_tag(tag_list)
         redirect_to plan_path(@plan.id), notice: "下書きを公開しました！"
       else
@@ -69,7 +74,11 @@ class User::PlansController < ApplicationController
     elsif params[:update_post]
       @plan.attributes = plan_params
       if @plan.save(context: :publicize)
-        @plan.save_tag(tag_list)
+         @old_relations=PostTag.where(plan_id: @plan.id)
+          @old_relations.each do |relation|
+          relation.delete
+        end
+         @plan.save_tag(tag_list)
         redirect_to plan_path(@plan.id), notice: "レシピを更新しました！"
       else
         render :edit, alert: "レシピを更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
@@ -77,6 +86,11 @@ class User::PlansController < ApplicationController
     # ③下書きレシピの更新（非公開）の場合
     else
       if @plan.update(plan_params)
+          @old_relations=PostTag.where(plan_id: @plan.id)
+          @old_relations.each do |relation|
+          relation.delete
+        end
+         @plan.save_tag(tag_list)
         redirect_to plan_path(@plan.id), notice: "下書きレシピを更新しました！"
       else
         render :edit, alert: "更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
@@ -90,6 +104,12 @@ class User::PlansController < ApplicationController
     redirect_to plans_path
   end
 
+  def search_tag
+    #検索結果画面でもタグ一覧表示
+    @tag_list=Tag.all
+    @tag=Tag.find(params[:tag_id])
+    @plans=@tag.plans.all
+  end
 
   private
 

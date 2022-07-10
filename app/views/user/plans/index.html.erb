@@ -1,21 +1,38 @@
-		<h2 class="section-ttl">投稿一覧</h2>
-		<div class="plans">
-			<% @plans.each do |plan| %>
-				<%= link_to plan_path(plan) do %>
-					<h5><%= plan.plan_title %></h5>
-				<% end %>
-				  <p><%= plan.customer.name %></p>
-					<p><%= plan.purpose_spot %></p>
-					<p><%= plan.budget %> 円</p>
-					<p><%= link_to "#{plan.post_comments.count} コメント", plan_path(plan.id) %></p>
-			<% end %>
-		</div>
-		
-		<!--タグリスト-->
-<% @tag_list.each do |list|%>
-<%=list.name %>
-<%="(#{list.plans.count})" %><% end %>
+<h2 class="section-ttl">投稿一覧</h2>
+<h1>search</h1>
+<%= form_with url: plans_path, method: :get, local: true do |f| %>
+  <%= f.text_field :plan_title %>
+  <%= f.submit :search %>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @plans_search.each do |plan| %>
+      <tr>
+        <td><%= plan.plan_title %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-投稿一覧画面で投稿に紐づくタグを表示
-<% @plans.each do |plan| %>
-<i class="fas fa-tag"><%= plan.tags.map(&:name).join(', ') %></i>
+
+
+<div class="plans">
+ <% @plans.each do |plan| %>
+ <%= link_to plan.plan_title,plan_path(plan) %>
+ <%= plan.customer.name %>
+ <%= plan.purpose_spot %>
+ <%= plan.budget %>
+ <% end %>
+</div>
+
+
+<!--タグリスト-->
+<% @tag_list.each do |list|%>
+<%=link_to list.name,search_tag_path(tag_id: list.id) %>
+<%="(#{list.plans.count})" %>
+<% end %>
