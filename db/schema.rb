@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_07_050344) do
+ActiveRecord::Schema.define(version: 2022_07_13_113809) do
+
+  create_table "actions", force: :cascade do |t|
+    t.integer "plan_id", null: false
+    t.string "action"
+    t.string "action_detail"
+    t.datetime "action_datetime"
+    t.integer "cost"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_id"], name: "index_actions_on_plan_id"
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -65,6 +76,15 @@ ActiveRecord::Schema.define(version: 2022_07_07_050344) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "plan_spot_lists", force: :cascade do |t|
+    t.integer "plan_id", null: false
+    t.integer "spot_list"
+    t.float "evaluation"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_id"], name: "index_plan_spot_lists_on_plan_id"
+  end
+
   create_table "plans", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.string "plan_title", null: false
@@ -74,15 +94,14 @@ ActiveRecord::Schema.define(version: 2022_07_07_050344) do
     t.integer "budget"
     t.string "purposes"
     t.string "purpose_spot"
+    t.string "important_point_1"
+    t.string "important_point_2"
+    t.string "important_point_3"
+    t.string "important_point_4"
+    t.string "important_point_5"
     t.integer "count"
-    t.text "spot_list"
     t.text "memo"
-    t.integer "cost"
     t.integer "cost_sum"
-    t.string "action"
-    t.string "action_detail"
-    t.date "action_date"
-    t.time "action_time"
     t.boolean "is_draft", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -112,8 +131,10 @@ ActiveRecord::Schema.define(version: 2022_07_07_050344) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "actions", "plans"
   add_foreign_key "bookmarks", "customers"
   add_foreign_key "bookmarks", "plans"
+  add_foreign_key "plan_spot_lists", "plans"
   add_foreign_key "post_tags", "plans"
   add_foreign_key "post_tags", "tags"
 end

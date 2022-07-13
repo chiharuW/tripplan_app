@@ -2,6 +2,12 @@ class User::ImportantPointsController < ApplicationController
   
   def create
     plan = Plan.find(params[:plan_id])
+    comment = current_customer.post_comments.new(post_comment_params)
+    comment.plan_id = plan.id
+    comment.save
+    redirect_to plan_path(plan)
+    
+    plan = Plan.find(params[:plan_id])
     important_point = current_customer.important_point.new(important_point_params)
     important_point.plan_id = plan_id
     important_point.save

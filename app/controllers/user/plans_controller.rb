@@ -3,10 +3,11 @@ class User::PlansController < ApplicationController
 
   def new
     @plan = Plan.new
+    @plan_spot_lists = @plan.plan_spot_lists.build
+    @actions = @plan.actions.build
   end
 
   def create
-    # @important_point = ImportantPoint.new
     @plan = Plan.new(plan_params)
     tag_list = params[:plan][:name].split(',')
 
@@ -114,7 +115,7 @@ class User::PlansController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(:plan_title, :departure, :arrival, :days, :budget, :purpose_spot, :count, :spot_list, :memo, :cost, :cost_sum, :action, :action_detail, :action_date, :action_time, :checkbox,　purposes:[]).merge(customer_id: current_customer.id)
+    params.require(:plan).permit(:plan_title, :departure, :arrival, :days, :budget, :purpose_spot, :important_point_1, :important_point_2, :important_point_3, :important_point_4, :important_point_5, :count, :memo, :cost_sum, :checkbox, :evaluation, purposes:[], plan_spot_lists_attributes:[:id, :spot_list, :_destroy], actions_attributes:[:id, :action, :action_detail, :action_datetime, :cost, :_destroy]).merge(customer_id: current_customer.id)
   end
 
 end

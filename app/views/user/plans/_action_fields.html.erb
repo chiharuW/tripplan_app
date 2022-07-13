@@ -1,0 +1,14 @@
+<div class="nested-fields">
+ <div class="form-group form-inline input-group-sm ml-5">
+ 	 <%= f.select :action, Plan.actions_i18n.invert, {prompt: false}, class: "col-md-2 mr-3"  %>
+  	<%= f.datetime_field :action_datetime , class: "col-md-2" %>
+   <%= f.text_field :action_detail , class: "col-md-4", placeholder:"行動内容を記入：例）飛行機　成田発・那覇着" %>
+   <%= f.label :cost, "費用", class: "col-md-1" %>
+   <%= f.number_field :cost,in: 100..100000, step: 100, class: "col-md-1" %>
+
+  <div class="text-center col-md-1">
+   <%= link_to_remove_association "削除", f %>
+  </div>
+
+</div>
+</div>

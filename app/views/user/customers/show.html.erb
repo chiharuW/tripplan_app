@@ -1,75 +1,72 @@
- <section class="inner">
-  <% if flash[:notice] %>
-    <p class="text-active"><%= flash[:notice] %></p>
-  <% end %>
-	<h2 class="section-ttl">マイページ</h2>
-	<h3>
-		登録情報
-		<%= link_to "編集する", edit_information_path, class: "btn btn-success ml2" %>
-		<%#= link_to "パスワードを変更する", edit_customer_registration_path, class: "btn btn-success ml2" %>
-	</h3>
-	<table class="customer_info mb3">
-		<thead>
-			<th></th>
-			<th></th>
-			<th></th>
-		</thead>
-		<tbody>
-			<tr>
-				<td>ユーザー名</td>
-				<td colspan="2"><%= @customer.name %></td>
-			</tr>
-			<tr>
-				<td>メールアドレス</td>
-				<td colspan="2"><%= @customer.email %></td>
-			</tr>
-		</tbody>
-	</table>
+<section class="inner">
 
+<h3 class="section-ttl text-center text-dark pt-4 pb-3">マイページ</h2>
 
-<h3>投稿一覧（下書き含む)</h3>
-<table>
-  <thead>
+<% if flash[:notice] %>
+ <p class="text-active"><%= flash[:notice] %></p>
+<% end %>
+
+<div class="container pb-5">
+<div class="row">
+
+<div class="border border-success rounded-lg col-md-2 py-3 text-center col align-self-start bg-success text-white">
+  <!--<%#= @customer.image %>-->
+ <p><%= @customer.name %></p>
+ <p><%= @customer.email %></p>
+ <%= link_to "編集する", edit_information_path, class: "btn btn-light text-success btn-sm" %>
+</div>
+
+<div class="border border-success col-md-5 ml-5 py-3 text-center col align-self-start">
+<h5>投稿一覧</h5>
+<table class="table table-borderless">
+ 	<thead>
+ 		<tr>
+ 			<th>タイトル</th>
+ 		  <th>作成日</th>
+ 		  <th></th>
+ 		</tr>
+ 	</thead>
+ 	<tbody>
+ 		<% @plans.each do |plan| %>
     <tr>
-      <th>タイトル</th>
-      <th>本文</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @plans.each do |plan| %>
-      <tr>
-        <td>
-          <%= link_to plan_path(plan) do %>
-            <%= plan.plan_title %>
+      <th><%= link_to plan_path(plan) do %>
+           <%= plan.plan_title %>
           <% end %>
-        </td>
-        <td><%= link_to "#{plan.post_comments.count} コメント", plan_path(plan.id) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </th>
+      <td><%= plan.created_at.strftime('%Y/%m/%d') %></td>
+      <td><% if plan.is_draft == true %>
+           公開中
+          <% else %>
+           下書き保存
+          <% end %>
+    </td>
+      <!--<td><%#= link_to "#{plan.post_comments.count} コメント", plan_path(plan.id) %></td>-->
+	  </tr>
+	  <% end %>
+	</tbody>
+ </table>
+</div>
 
-
-<h3>ブックマーク一覧</h3>
- <table>
-  <thead>
-    <tr>
-      <th>投稿者名</th>
+<div class="border border-success col-md-4 mx-auto py-3 text-center col align-self-start">
+<h5>ブックマーク一覧</h5>
+<table class="table table-borderless">
+ 	<thead>
+ 		<tr>
       <th>タイトル</th>
-      <th>本文</th>
+      <th>投稿者名</th>
     </tr>
   </thead>
   <tbody>
     <% @bookmarks.each do |bookmark| %>
       <tr>
-        <td><%= bookmark.plan.customer.name %></td>
         <td>
           <%= link_to plan_path(bookmark.plan) do %>
             <%= bookmark.plan.plan_title %>
           <% end %>
         </td>
-        <td><%#= bookmark.post.body %></td>
+        <td><%= bookmark.plan.customer.name %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>

@@ -3,9 +3,13 @@ class Plan < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
-  has_many :important_point, dependent: :destroy
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
+  has_many :plan_spot_lists, dependent: :destroy
+   accepts_nested_attributes_for :plan_spot_lists
+  has_many :actions, dependent: :destroy
+   accepts_nested_attributes_for :actions
+   accepts_nested_attributes_for :actions, allow_destroy: true
 
   def bookmarked_by?(customer)
     bookmarks.where(customer_id: customer).exists?
@@ -43,18 +47,17 @@ class Plan < ApplicationRecord
     validates :days
     validates :budget
     validates :purpose_spot
+    validates :important_point_1
+    validates :important_point_2
+    validates :important_point_3
+    validates :important_point_4
+    validates :important_point_5
     validates :count
-    validates :spot_list
     validates :memo
-    validates :cost
     validates :cost_sum
-    validates :action
-    validates :action_detail
-    validates :action_date
-    validates :action_time
     validates :purposes
   end
   validates :plan_title, length: { maximum: 14 }, on: :publicize
 
-  enum purpose: { yukkurinonbiri: 0, gurume: 1, activity: 2, onsen: 3, sansaku: 4, bae: 5, kankou: 6, refresh: 7, deai: 8 }
+  enum action: { syupatu: 0, toutyaku: 1, idou: 2, activety: 3, kyuukei: 4, syokuzi: 5, sonota: 6 }
 end

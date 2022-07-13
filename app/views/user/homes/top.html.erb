@@ -1,26 +1,79 @@
-<h1>トップ画面</h1>
-<section class="wrapper flex">
-	<div class="content">
-		<div class="mv">
-			<p>
-				TripPlanへようこうそ<br>
+<div class="jumbotron jumbotron-extend">
+ <div class="container-fluid jumbotron-container">
+  <h1 class="site-name">Trip Plan</h1>
+   <p>
+   	<a class="btn btn-black" href="customers/sign_in" role="button">log in</a>
+    <a class="btn btn-black" href="customers/sign_up" role="button">sign in</a>
+   </p>
+   <div>
+		<p>	TripPlanへようこうそ<br>
 				このサイトは旅行の計画を立て、共有できるコミュニティサイトです。<br>
 				計画だけでなく、日記や振り返りのページも作成可能です。<br>
-                いいねやブックマーク、コメント機能があるので、他ユーザーさんの計画を参考にすることができます。<br>
+        いいねやブックマーク、コメント機能があるので、他ユーザーさんの計画を参考にすることができます。<br>
 				ゲストログインでご利用もいただけます。<br>
-			</p>
-		</div>
-		<h2 class="section-ttl">新着投稿</h2>
-		<div class="plans">
-			<% @plans.each do |plan| %>
-				<%= link_to plan_path(plan) do %>
-					<h5><%= plan.plan_title %></h5>
-				<% end %>
-				  <p><%= plan.customer.name %></p>
-					<p><%= plan.purpose_spot %></p>
-					<p><%= plan.budget %> 円</p>
-			<% end %>
-		</div>
+		</p>
+	 </div>
+  </div>
+</div>
+
+<div class="container">
+<h3>新着投稿</h3>
+ <table class="table table-borderless col-md-8">
+ 	<thead>
+ 		<tr>
+ 			<th>タイトル</th>
+ 			<th>投稿者</th>
+ 		  <th>作成日</th>
+ 		  <th>目的地</th>
+ 		  <th>予算</th>
+ 		</tr>
+ 	</thead>
+ 	<tbody>
+ 		<% @plans.each do |plan| %>
+    <tr>
+      <th><%= plan.plan_title %></th>
+      <td><%= plan.customer.name %></td>
+      <td><%= plan.created_at.strftime('%Y/%m/%d') %></td>
+      <td><%= plan.purpose_spot %></td>
+      <td><%= plan.budget %> 円</td>
+	  </tr>
+	  <% end %>
+	</tbody>
+ </table>
+</div>
+
 	</div>
+	</div>
+
 </section>
 
+<!--自作CSS -->
+<style type="text/css"><!--
+/*ここに調整CSS記述*/
+.jumbotron-extend {
+    position: relative;
+    height: 100vh;
+    min-height: 300px;
+    background: url("bg2_image.png") no-repeat center center;
+    background-size: cover;
+}
+.jumbotron-container {
+    position: relative;
+    top: 40%;
+    transform: translateY(-50%);
+}
+.site-name {
+    margin-bottom: 40px;
+    font-family: 'Playfair Display', serif;
+}
+.btn-black {
+    border-radius: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Avenir', serif;
+}
+.btn-black:hover {
+     background-color: #fff;
+     color: #000;
+}--></style>
+</head>

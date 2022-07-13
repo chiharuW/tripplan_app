@@ -23,7 +23,7 @@
 	</div>
     <div class="form-group form-inline input-group-sm pb-2">
      <%= f.label :budget, "予算" , class: "col-md-2" %>
-	 <%= f.number_field :budget,in: 10000..100000, step: 5000 , class: "col-md-2"%>
+	 <%= f.number_field :budget,in: 10000..1000000, step: 5000, class: "col-md-2"%>
      <%= f.label :count, "人数" , class: "col-md-2" %>
 	 <%= f.number_field :count, in: 1..20 , class: "col-md-2" %>
 	</div>
@@ -32,8 +32,8 @@
    <div class="rounded border border-info bg-white mt-4">
    <div class="col-md-3 control-label mt-2 mb-3 pt-1 font-weight-bold">step2 旅の目的地</div>
 	<div class="form-group form-inline input-group-sm">
-     <%= f.label :purpose, "目的" , class: "col-md-2" %>
-     <% ["ゆっくりのんびり","グルメ","アクティビティ","温泉","散策","映え","観光","リフレッシュ","出会いを求めて"].each.with_index do |purpose,i| %>
+     <%= f.label :purposes, "目的" , class: "col-md-2" %>
+     <% ["ゆっくりのんびり　","グルメ　","アクティビティ　","温泉　","散策　","映え　","観光　","リフレッシュ　","出会いを求めて"].each.with_index do |purpose,i| %>
       <label>
        <%= check_box_tag 'plan[purposes][]', purpose,false,id:"plan_purposes_#{i}"%>
        <%= purpose %>
@@ -41,49 +41,53 @@
      <% end %>
     </div>
     <div class="form-group form-inline input-group-sm">
-	        <%#= form_for @important_point do |f| %>
-					<%#= f.text_field :important_point_1 %>
-					    <%#= f.text_field :important_point_2 %>
-					    <%#= f.text_field :important_point_3 %>
-					    <%#= f.text_field :important_point_4 %>
-					    <%#= f.text_field :important_point_5 %>
-					    <%#= f.submit "決定", class: "btn btn-primary" %>
-			    <%# end %>
-	</div>
-	<div class="form-group form-inline input-group-sm">
-     <%= f.label :spot_list, "候補地" , class: "col-md-2" %>
-     <%= f.text_field :spot_list , class: "col-md-5" %>
-     <%#= plan.important_point_1 %>
-	 <%= f.label :purpose_spot, "目的地"  , class: "col-md-2"%>
-	 <%= f.text_field :purpose_spot , class: "col-md-2" %>
-	</div>
-	<div class="form-group form-inline input-group-sm">
-	 <%= f.label :purpose_spot, "目的地" , class: "col-md-2" %>
-	 <%= f.text_field :purpose_spot , class: "col-md-2" %>
-	</div>
-	<div class="form-group form-inline input-group-sm pb-2">
+     <%= f.label :memo, "重要視ポイント（候補地がクリアしていれば☆をつけましょう）" , class: "col-md-6" %>
+    	<%= f.text_field :important_point_1 ,:size=>"6",class:"mr-2", placeholder:"予算以内" %>
+				 <%= f.text_field :important_point_2 ,:size=>"6",class:"mr-2", placeholder:"移動距離" %>
+				 <%= f.text_field :important_point_3 ,:size=>"6",class:"mr-2", placeholder:"行きたい！" %>
+				 <%= f.text_field :important_point_4 ,:size=>"6",class:"mr-2", placeholder:"天気による" %>
+				 <%= f.text_field :important_point_5 ,:size=>"6", placeholder:"皆の希望" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.fields_for :plan_spot_lists do |t| %>
+       <%= render "plan_spot_list_fields", f: t %>
+      <% end %>
+      <div class="add-botton-box col-md-12 text-center">
+       <%= link_to_add_association "候補地 ＋", f, :plan_spot_lists,
+        data: {association_insertion_method: 'before'}
+       %>
+   　  </div>
+    </div>
+
+   	<div class="form-group form-inline input-group-sm">
+	    <%= f.label :purpose_spot, "目的地"  , class: "col-md-2"%>
+	    <%= f.text_field :purpose_spot , class: "col-md-9" %>
+	   </div>
+
+	   <div class="form-group form-inline input-group-sm pb-2">
      <%= f.label :memo, "メモ" , class: "col-md-2" %>
-	 <%= f.text_area :memo,:size=>"50x3", class: "colsxrows2"%>
-	</div>
+	    <%= f.text_area :memo,:size=>"50x3", class: "colsxrows2"%>
+	   </div>
    </div>
 
-   <div class="rounded border border-info bg-white mt-4">
-   <div class="col-md-3 control-label mt-2 mb-3 pt-1 font-weight-bold">step3 旅の詳細計画</div>
-	<div class="form-group form-inline input-group-sm">
-     <%= f.select :action, {'出発': 1, '到着': 2, '移動': 3, 'アクティビティ': 4, '休憩': 5, '食事': 6, 'その他': 7}, { include_blank: '行動項目選択'}, { class: "col-md-2 ml-5" } %>
-	 <%= f.datetime_field :action_date , class: "col-md-2 ml-4" %>
-	 <%= f.text_field :action_detail , class: "col-md-4 ml-4", placeholder:"行動内容を記入：例）飛行機　成田発・那覇着" %>
-  <!--   <%#= f.label :action_time, "時間" %>-->
-	 <!--<%#= f.time_field :action_time %>-->
-     <%= f.label :cost, "費用", class: "col-md-1" %>
-	 <%= f.number_field :cost, class: "col-md-1" %>
-	</div>
-	<div class="form-group form-inline input-group-sm pb-2">
-	 <div class="col-md-9">＋（行動項目追加）</div>
-	 <%= f.label :cost_sum, "合計", class: "col-md-1" %>
-	 <%= f.number_field :cost_sum, class: "col-md-1" %>
-	</div>
-   </div>
+  <div class="rounded border border-info bg-white mt-4">
+ <div class="col-md-3 control-label mt-2 mb-3 pt-1 font-weight-bold">step3 旅の詳細計画</div>
+   <div class="mb-4">
+    <%= f.fields_for :actions do |t| %>
+     <%= render "action_fields", f: t %>
+    <% end %>
+    <div id="detail-association-insertion-point"></div>
+    <div class="form-group form-inline input-group-sm ml-5 pt-3 border-top">
+     <div class="add-botton-box col-md-8 text-center">
+     <%= link_to_add_association "スケジュール ＋", f, :actions, data: { association_insertion_node: '#detail-association-insertion-point',association_insertion_method: 'after'} %>
+     </div>
+     <%= f.label :cost_sum, "合計", class: "col-md-1 ml-3" %>
+	    <%= f.number_field :cost_sum, class: "col-md-2" %>
+	   </div>
+	  </div>
+  </div>
+
 
    <div class="rounded border border-info bg-white mt-4">
    <div class="col-md-3 control-label mt-2 mb-3 pt-1 font-weight-bold">step4 検索用タグの登録</div>

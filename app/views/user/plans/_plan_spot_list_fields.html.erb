@@ -1,0 +1,25 @@
+<div class="nested-fields">
+ <div class="form-group form-inline input-group-sm">
+
+  <%= f.label :spot_list, "候補地" , class: "col-md-2" %>
+  <%= f.text_field :spot_list , class: "col-md-4" %>
+
+  <div class="field text-center col-md-4" id="star">
+   <%= f.hidden_field :evaluation, id: :review_star %>
+  </div>
+   <script>
+      $('#star').raty({
+        size     : 36,
+        starOff:  '<%= asset_path('star-off.png') %>',
+        starOn : '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        scoreName: 'plan_spot_list[evaluation]',
+      });
+   </script>
+
+  <div class="text-center col-md-1">
+   <%= link_to_remove_association "削除", f %>
+  </div>
+
+ </div>
+</div>
