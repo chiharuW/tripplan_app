@@ -1,16 +1,21 @@
-<h2>新規登録</h2>
+<section class="inner bg-light">
+
+<form class="text-center py-5">
+  <div class="card py-5 mx-auto" style="width: 23rem;">
+  <h4>新規登録</h4>
+  <% if flash[:danger] %>
+ <p class="text-red"><%= flash[:danger] %></p>
+<% end %>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "user/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :name, "ユーザー名" %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  <div class="field mt-4 mb-4">
+   <%= f.text_field :name, autofocus: true, autocomplete: "name",placeholder:"ユーザー名", size: "35"  %>
   </div>
 
   <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+   <%= f.email_field :email, autofocus: true, autocomplete: "email",placeholder:"メールアドレス", size: "35" %>
   </div>
 
   <div class="field">
@@ -18,17 +23,24 @@
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> 文字以上)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password",size: "35" %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation, "パスワード確認" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" ,size: "35" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "登録" %>
+
+  <div class="actions mt-4">
+    <%= f.submit "登録", class: "btn btn-sm btn-primary" %>
+    <%= render "user/shared/links" %>
   </div>
 <% end %>
 
-<%= render "user/shared/links" %>
+
+</div>
+</form>
+
+</section>
+

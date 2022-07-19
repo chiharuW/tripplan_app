@@ -2,11 +2,11 @@
 
 <h3 class="section-ttl text-center text-white pt-4 pb-3">新規投稿</h2>
 
-<%= flash[:notice] %>
-<%= form_with(model: @plan, url: plans_path, local: true) do |f| %>
- <%= render 'layouts/error_messages', resource: @plan %>
-
   <div class="container">
+  
+  <%= form_with(model: @plan, url: plans_path, local: true) do |f| %>
+  <%= render 'layouts/error_messages', resource: @plan %>
+  
   <div class="rounded border border-info bg-white">
 
   <div class="col-md-3 control-label mt-2 mb-3 pt-1 font-weight-bold">step1 旅の基本情報</div>
@@ -34,28 +34,29 @@
    <div class="col-md-3 control-label mt-2 mb-3 pt-1 font-weight-bold">step2 旅の目的地</div>
    	<div class="form-group form-inline input-group-sm">
      <%= f.label :purposes, "目的" , class: "col-md-2" %>
-     <% ["ゆっくりのんびり　","グルメ　","アクティビティ　","温泉　","散策　","映え　","観光　","リフレッシュ　","出会いを求めて"].each.with_index do |purpose,i| %>
+     <% ["ゆっくりのんびり　","リフレッシュ　","グルメ　","アクティビティ　","温泉　","散策　","映え　","観光　","その他"].each.with_index do |purpose,i| %>
       <label>
-       <%= check_box_tag 'plan[purposes][]', purpose,false,id:"plan_purposes_#{i}"%>
+       <%= f.check_box :purposes, {multiple: true}, purpose, nil %>
        <%= purpose %>
       </label>
      <% end %>
     </div>
 
     <div class="form-group form-inline input-group-sm">
-      <%= f.label :memo, "重要視ポイント（候補地がクリアしていれば☆をつけましょう）" , class: "col-md-6" %>
-     	<%= f.text_field :important_point_1 ,:size=>"6",class:"mr-2", placeholder:"予算以内" %>
-				  <%= f.text_field :important_point_2 ,:size=>"6",class:"mr-2", placeholder:"移動距離" %>
-					 <%= f.text_field :important_point_3 ,:size=>"6",class:"mr-2", placeholder:"行きたい！" %>
-					 <%= f.text_field :important_point_4 ,:size=>"6",class:"mr-2", placeholder:"天気による" %>
-					 <%= f.text_field :important_point_5 ,:size=>"6", placeholder:"皆の希望" %>
+      <P class="col-md-2 text-center pt-3">条件</P>
+      <p class="col-md-4 text-center pt-3 small">目的地を決めるための条件です。候補地が条件をクリアしていれば☆をつけ、その数を参考に取捨選択しましょう。</p>
+      <%= f.text_field :important_point_1 ,:size=>"6",class:"mr-2", placeholder:"例：予算内" %>
+				  <%= f.text_field :important_point_2 ,:size=>"6",class:"mr-2", placeholder:"例：距離" %>
+					 <%= f.text_field :important_point_3 ,:size=>"6",class:"mr-2", placeholder:"" %>
+					 <%= f.text_field :important_point_4 ,:size=>"6",class:"mr-2", placeholder:"" %>
+					 <%= f.text_field :important_point_5 ,:size=>"6", placeholder:"" %>
     </div>
 
     <div class="mb-4">
       <%= f.fields_for :plan_spot_lists do |t| %>
-       <%= render "plan_spot_list_fields", f: t %>
+       <%= render partial: "plan_spot_list_fields", locals: { f: t } %>
       <% end %>
-      <div class="add-botton-box col-md-12 text-center">
+      <div class="add-botton-box col-md-12 text-center class-parent">
        <%= link_to_add_association "候補地 ＋", f, :plan_spot_lists,
         data: {association_insertion_method: 'before'}
        %>
@@ -82,7 +83,7 @@
     <div id="detail-association-insertion-point"></div>
     <div class="form-group form-inline input-group-sm ml-5 pt-3 border-top">
      <div class="add-botton-box col-md-8 text-center">
-     <%= link_to_add_association "スケジュール ＋", f, :actions, data: { association_insertion_node: '#detail-association-insertion-point',association_insertion_method: 'after'} %>
+     <%= link_to_add_association "スケジュール ＋", f, :actions, data: { association_insertion_node: '#detail-association-insertion-point',association_insertion_method: 'before'} %>
      </div>
      <%= f.label :cost_sum, "合計", class: "col-md-1 ml-3" %>
 	    <%= f.number_field :cost_sum, class: "col-md-2" %>

@@ -1,0 +1,11 @@
+ja:
+  enums:
+    action:
+      action:
+        syupatu: "出発"
+        toutyaku: "到着"
+        idou: "移動"
+        activety: "アクティビティ"
+        kyuukei: "休憩"
+        syokuzi: "食事"
+        sonota: "その他"

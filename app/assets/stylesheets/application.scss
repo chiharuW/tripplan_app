@@ -1,0 +1,75 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+/*ここに調整CSS記述*/
+.jumbotron-extend {
+    position: relative;
+    height: 100vh;
+    min-height: 300px;
+    background: url(bg_image.jpg);
+    background-size: cover;
+}
+.jumbotron-container {
+    position: relative;
+    top: 30%;
+    transform: translateY(-50%);
+}
+.site-name {
+    margin-bottom: 40px;
+    font-family: 'Playfair Display', serif;
+}
+.top_btn {
+    padding: 7px;
+    margin: 3px;
+    border-radius: 10px;
+    background-color: #264654;
+    color: #fff;
+    font-family: 'Avenir', serif;
+}
+.top_btn:hover {
+     background-color: #a6b4ba;
+     color: #132b36;
+     text-decoration: none;
+}
+
+.btn-link{
+    text-decoration: none;
+    color: #333;
+}
+
+.btn{
+    border: 2px solid #00A73C;
+    border-radius: 20px;
+}
+.btn:hover{
+    background-color: #00A73C;
+}
+.btn:hover a{
+    color: #fff;
+}
+
+.navbar-brand {
+  font-family: 'Playfair Display', serif;
+}
+
+.logo_area {
+  width: 250px;
+}
+
+.logo {
+  height: 100%;
+  width: 100%;
+}

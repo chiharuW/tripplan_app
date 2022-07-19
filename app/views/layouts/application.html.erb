@@ -7,46 +7,51 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
 
  <body>
-    <% if admin_signed_in? %>
-      <header class="admin_header">
-        <div class="navbar navbar-expand-lg navbar-light bg-light">
-          <%= link_to 'TripPlan', admin_top_path, class: "logo" %>
-          <ul class="flex">
-            <li><%= link_to '会員一覧', admin_customers_path %></li>
-            <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "text_white" %></li>
-          </ul>
+  <header  class="user_header">
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="logo_area">
+         <a class="navbar-brand" href="/"><%= image_tag 'logohd.png', class: "logo" %></a>
         </div>
-      </header>
-
-     <% elsif customer_signed_in? %>
-      <header  class="user_header">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-         <a class="navbar-brand " href="/">TripPlan</a>
-
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
          </button>
+  
+    <% if admin_signed_in? %>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+           <li class="nav-item active">
+           <%= link_to '会員一覧', admin_customers_path ,class: "nav-link"  %>
+           <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete ,class: "nav-link"  %>
+           </li>
+          </ul>
+        </div>
+       </div>
+       </nav>
+      </header>
+
+     <% elsif customer_signed_in? %>
+
 
          <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ml-auto">
            <li class="nav-item active">
-            <a class="nav-link"href="/customers/mypage">マイページ</a>
+            <%= link_to 'マイページ', mypage_path, method: :get ,class: "nav-link" %>
            </li>
            <li class="nav-item active">
-            <a class="nav-link" href="/plans">投稿一覧</a>
+            <%= link_to '投稿一覧', plans_path, method: :get ,class: "nav-link" %>
            </li>
            <li class="nav-item active">
-            <a class="nav-link" href="/plans/new">新規作成</a>
+            <%= link_to '新規作成', new_plan_path, method: :get ,class: "nav-link" %>
            </li>
            <li class="nav-item active">
-            <li class="nav-link"><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete %></li>
-            <!--<a class="nav-link" href="/customers/sign_out">ログアウト</a>-->
+            <%= link_to 'ログアウト', destroy_customer_session_path, method: :delete ,class: "nav-link" %>
            </li>
           </ul>
          </div>
@@ -56,25 +61,18 @@
      </header>
 
     <% else %>
-      <header  class="user_header">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-         <a class="navbar-brand " href="/">TripPlan</a>
 
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-         </button>
 
          <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ml-auto">
            <li class="nav-item active">
-            <li class="nav-link"><%= link_to '新規登録', new_customer_registration_path %></li>
+            <%= link_to '新規登録', new_customer_registration_path ,class: "nav-link" %>
            </li>
            <li class="nav-item active">
-            <li class="nav-link"><%= link_to 'ログイン', new_customer_session_path %></li>
+            <%= link_to 'ログイン', new_customer_session_path ,class: "nav-link" %>
            </li>
            <li class="nav-item active">
-            <li class="nav-link"><%= link_to 'ゲストログイン', homes_guest_sign_in_path, method: :post %></li>
+            <%= link_to 'ゲストログイン', user_guest_sign_in_path, method: :post ,class: "nav-link" %>
            </li>
           </ul>
          </div>

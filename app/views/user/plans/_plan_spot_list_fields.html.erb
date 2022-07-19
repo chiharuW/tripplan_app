@@ -2,23 +2,27 @@
  <div class="form-group form-inline input-group-sm">
 
   <%= f.label :spot_list, "候補地" , class: "col-md-2" %>
-  <%= f.text_field :spot_list , class: "col-md-4" %>
+  <%= f.text_field :spot_list , class: "col-md-4 spot_list" %>
 
-  <div class="field text-center col-md-4" id="star">
-   <%= f.hidden_field :evaluation, id: :review_star %>
+  <div class="field text-center col-md-4">
+   <span class="star"></span>
+   <%= f.hidden_field :evaluation, name: :review_star, class: 'review_star' %>
   </div>
    <script>
-      $('#star').raty({
+      var star_value = $('.spot_list').last().attr('name');
+      star_value = star_value.replace('[spot_list]', '[evaluation]')
+      $('.star').last().raty({
         size     : 36,
         starOff:  '<%= asset_path('star-off.png') %>',
         starOn : '<%= asset_path('star-on.png') %>',
         starHalf: '<%= asset_path('star-half.png') %>',
-        scoreName: 'plan_spot_list[evaluation]',
+        scoreName: star_value,
+        score: $('.review_star').last().val() === '' ? 0 : $('.review_star').last().val()
       });
    </script>
 
   <div class="text-center col-md-1">
-   <%= link_to_remove_association "削除", f %>
+   <%= link_to_remove_association "削除", f , class: "btn btn-sm btn-outline-danger" %>
   </div>
 
  </div>

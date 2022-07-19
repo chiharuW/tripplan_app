@@ -1,5 +1,6 @@
 class User::PlansController < ApplicationController
-  #before_action :purpose_string, only: [:create, :update] # #チェックボックスの値を文字列表示にするため、createとupdateの前に必ず実行
+  # before_action :purposes_string, only: [:create, :update]
+   #チェックボックスの値を文字列表示にするため、createとupdateの前に必ず実行
 
   def new
     @plan = Plan.new
@@ -10,7 +11,7 @@ class User::PlansController < ApplicationController
   def create
     @plan = Plan.new(plan_params)
     tag_list = params[:plan][:name].split(',')
-
+    @plan.purposes = params[:plan][:purposes].join(' ') if params[:plan][:purposes]
     # 投稿ボタンを押下した場合
     if params[:post]
       if @plan.save(context: :publicize)
@@ -69,7 +70,7 @@ class User::PlansController < ApplicationController
         redirect_to plan_path(@plan.id), notice: "下書きを公開しました！"
       else
         @plan.is_draft = true
-        render :edit, alert: "を公開できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
+        render :edit, alert: "計画を公開できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
       end
     # ②公開済みレシピの更新の場合
     elsif params[:update_post]
@@ -80,9 +81,9 @@ class User::PlansController < ApplicationController
           relation.delete
         end
          @plan.save_tag(tag_list)
-        redirect_to plan_path(@plan.id), notice: "レシピを更新しました！"
+        redirect_to plan_path(@plan.id), notice: "計画を更新しました！"
       else
-        render :edit, alert: "レシピを更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
+        render :edit, alert: "計画を更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
       end
     # ③下書きレシピの更新（非公開）の場合
     else
@@ -92,9 +93,9 @@ class User::PlansController < ApplicationController
           relation.delete
         end
          @plan.save_tag(tag_list)
-        redirect_to plan_path(@plan.id), notice: "下書きレシピを更新しました！"
+        redirect_to plan_path(@plan.id), notice: "下書きを更新しました！"
       else
-        render :edit, alert: "更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
+        render :edit, alert: "下書き更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
       end
     end
   end
@@ -115,7 +116,11 @@ class User::PlansController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(:plan_title, :departure, :arrival, :days, :budget, :purpose_spot, :important_point_1, :important_point_2, :important_point_3, :important_point_4, :important_point_5, :count, :memo, :cost_sum, :checkbox, :evaluation, purposes:[], plan_spot_lists_attributes:[:id, :spot_list, :_destroy], actions_attributes:[:id, :action, :action_detail, :action_datetime, :cost, :_destroy]).merge(customer_id: current_customer.id)
+    params.require(:plan).permit(:plan_title, :departure, :arrival, :days, :budget, :purpose_spot, :important_point_1, :important_point_2, :important_point_3, :important_point_4, :important_point_5, :count, :memo, :cost_sum, :checkbox, purposes:[], plan_spot_lists_attributes:[:id, :spot_list, :evaluation, :_destroy], actions_attributes:[:id, :action, :action_detail, :action_datetime, :cost, :_destroy]).merge(customer_id: current_customer.id)
   end
+
+  # def purposes_string
+  # params[:plan][:purposes] = params[:plan][:purposes].join("/") # to string
+  # end
 
 end

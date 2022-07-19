@@ -1,9 +1,10 @@
-<section class="inner">
-	<h2 class="section-ttl"><%= @customer.name %> さんの会員情報編集</h2>
-	<%= form_with(model: @customer, url: admin_customer_path(@customer), local: true) do |f| %>
-		<%= render 'layouts/error_messages', resource: @customer %>
-		<table class="customer_info customer_form">
-			<thead>
+<div class="container my-4">
+<h3 class="text-center"><%= @customer.name %> さんの会員情報編集</h3>
+  <%= form_with(model: @customer, url: admin_customer_path(@customer), local: true) do |f| %>
+	<%= render 'layouts/error_messages', resource: @customer %>
+
+ <table class="table table-borderless col-md-5 mx-auto">
+	<thead>
 				<th></th>
 				<th></th>
 				<th></th>
@@ -23,9 +24,9 @@
 					<td><%= f.radio_button :is_active, false %><%= f.label :is_active, "退会済み", class: "text-invalid" %></td>
 				</tr>
 				<tr>
-					<td colspan="3"><%= f.submit "更新", class: "btn btn-primary" %></td>
+					<td colspan="3"><%= f.submit "更新", class: "btn btn-success" %></td>
 				</tr>
 			</tbody>
 		</table>
 	<% end %>
-</section>
+</div>

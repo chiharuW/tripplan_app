@@ -4,6 +4,7 @@
  <h5 class="text-center pt-1 pb-3" >by <%= @plan.customer.name %></h5>
 
   <div class="container table-responsive">
+   <%= flash[:notice] %>
 	 <table class="table-bordered mx-auto table col-md-8">
 	  <tr>
 		  <td class= "col-md-1 table-secondary">出発日</td>
@@ -28,21 +29,35 @@
 	  </tr>
    <tr>
 	   <td class= "col-md-1 table-secondary">行動予定</td>
-		  <td class= "col-md-1 table-light"><%= @plan.action_i18n %></td>
-		  <td class= "col-md-1 table-light"><%= @plan.action_ids %></td>
-		  <td colspan="4", class="table-light"><%= @plan.action_ids %></td>
+		  <td class= "col-md-1 table-light" colspan=5>
+		   <table class="table">
+		    <% @plan.actions.each do |action| %>
+		    <tr>
+		     <td><%= action.action_i18n %></td>
+		     <td><%= action.action_datetime.strftime('%y/%m/%d %X') %></td>
+		     <td><%= action.action_detail %></td>
+		    </tr>
+		    <% end %>
+		   </table>
+		  </td>
 	  </tr>
 	 </table>
-	 <div class="col-md-2">タグ</div>
-   <% @post_tags.each do |tag| %>
-    <%= link_to tag.name,search_tag_path(tag_id: tag.id)%><%="(#{tag.plans.count})" %>
-   <% end %>
-  </div>
+ </div>
+
+ <div class="container">
+
+  <div class="row mt-3 mb-4 text-center">
+  	 <div class="col-md-4 mx-auto">タグ：
+      <% @post_tags.each do |tag| %>
+       <%= link_to tag.name,search_tag_path(tag_id: tag.id)%><%="(#{tag.plans.count})" %>
+      <% end %>
+    </div>
+   </div>
 
   <div class="row mt-4 pb-5">
    <div class="form-inline mx-auto">
     <% if @plan.customer == current_customer %>
-     <%= link_to "編集する", edit_plan_path, class: "mr-5 btn btn-success" %>
+     <%= link_to "編集する", edit_plan_path, class: "mr-5 btn btn-success", "data-turbolinks": false %>
     <% end %>
     <!--ブックマーク-->
     <% if @plan.bookmarked_by?(current_customer) %>
@@ -85,4 +100,5 @@
    </div>
   </div>
 
+</div>
 </div>

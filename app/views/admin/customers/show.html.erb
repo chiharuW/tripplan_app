@@ -1,7 +1,7 @@
-<section class="inner">
-	<h2 class="section-ttl"><%= @customer.name %>さんのページ</h2>
-	<table class="customer_info">
-		<thead>
+<div class="container my-4">
+<h3 class="text-center"><%= @customer.name %>さんのページ</h3>
+ <table class="table table-borderless col-md-5 mx-auto">
+ 	<thead>
 			<th></th>
 			<th></th>
 			<th></th>
@@ -9,25 +9,25 @@
 		<tbody>
 			<tr>
 				<td>会員ID</td>
-				<td colspan="2"><%= @customer.id %></td>
+				<td><%= @customer.id %></td>
 			</tr>
 			<tr>
 				<td>ユーザー名</td>
-				<td colspan="2"><%= @customer.name %></td>
+				<td><%= @customer.name %></td>
 			</tr>
 			<tr>
 				<td>メールアドレス</td>
-				<td colspan="2"><%= @customer.email %></td>
+				<td><%= @customer.email %></td>
 			</tr>
 			<tr>
 				<td>投稿件数</td>
-				<td colspan="2"><%= @customer.plans.count %> 件</td>
+				<td><%= @customer.plans.count %> 件</td>
 			</tr>
 			<tr>
 				<td>会員ステータス</td>
-				<td colspan="2">
+				<td>
 					<% if @customer.is_active? %>
-						<span class="text-active">有効	</span>					
+						<span class="text-active">有効	</span>
 					<% else %>
 						<span class="text-invalid">退会済み</span>
 					<% end %>
@@ -39,5 +39,4 @@
 			</tr>
 		</tbody>
 	</table>
-	
-</section>
+</div>

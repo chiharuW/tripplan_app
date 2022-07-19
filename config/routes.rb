@@ -7,9 +7,13 @@ devise_for :customers,skip: [:passwords], controllers: {
   sessions: 'user/sessions'
 }
 
+devise_scope :customer do
+ post 'user/guest_sign_in', to: 'user/sessions#guest_sign_in'
+end
+
  scope module: :user do
    root 'homes#top'
-   post '/homes/guest_sign_in', to: 'homes#guest_sign_in'
+   # post '/homes/guest_sign_in', to: 'homes#guest_sign_in'
    get 'customers/about' => 'homes#about', as: 'about'
    get 'customers/mypage' => 'customers#show', as: 'mypage'
    get 'customers/information/edit' => 'customers#edit', as: 'edit_information'

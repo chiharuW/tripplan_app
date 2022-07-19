@@ -22,9 +22,14 @@ class User::CustomersController < ApplicationController
   end
 
   def withdraw
-    @customer.update(is_active: false)
-    reset_session
-    redirect_to root_path
+    @customer = current_customer
+    if @customer.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストログインの場合、アカウントの削除はできません。'
+    else
+      @customer.update(is_active: false)
+      reset_session
+      redirect_to root_path
+    end
   end
 
  private
@@ -34,7 +39,7 @@ class User::CustomersController < ApplicationController
   end
 
   def customer_params
-    params.require(:customer).permit(:name, :email)
+    params.require(:customer).permit(:name, :email, :profile_image)
   end
 
 end

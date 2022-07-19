@@ -59,5 +59,5 @@ class Plan < ApplicationRecord
   end
   validates :plan_title, length: { maximum: 14 }, on: :publicize
 
-  enum action: { syupatu: 0, toutyaku: 1, idou: 2, activety: 3, kyuukei: 4, syokuzi: 5, sonota: 6 }
+  
 end
