@@ -8,9 +8,9 @@
 	 <table class="table-bordered mx-auto table col-md-8">
 	  <tr>
 		  <td class= "col-md-1 table-secondary">出発日</td>
-		  <td class= "col-md-1 table-light"><%= @plan.departure %></td>
+		  <td class= "col-md-1 table-light"><%= @plan.departure&.strftime('%y/%m/%d') %></td>
 		  <td class= "col-md-1 table-secondary">到着日</td>
-		  <td class= "col-md-1 table-light"><%= @plan.arrival %></td>
+		  <td class= "col-md-1 table-light"><%= @plan.arrival&.strftime('%y/%m/%d') %></td>
 		  <td class= "col-md-1 table-secondary">泊数</td>
 		  <td class= "col-md-1 table-light"><%= @plan.days %>泊</td>
 	  <tr>
@@ -34,7 +34,7 @@
 		    <% @plan.actions.each do |action| %>
 		    <tr>
 		     <td><%= action.action_i18n %></td>
-		     <td><%= action.action_datetime.strftime('%y/%m/%d %X') %></td>
+		     <td><%= action.action_datetime&.strftime('%y/%m/%d %X') %></td>
 		     <td><%= action.action_detail %></td>
 		    </tr>
 		    <% end %>

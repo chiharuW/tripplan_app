@@ -1,13 +1,13 @@
 <div class="inner bg-light">
- 
+
  <div class="jumbotron jumbotron-extend">
  <div class="container-fluid jumbotron-container">
   <h1 class="site-name">Trip Plan</h1>
    <p>
    	<a class="top_btn" href="customers/sign_in" role="button">log in</a>
-    <a class="top_btn" href="customers/sign_up" role="button">sign in</a>
+    <a class="top_btn" href="customers/sign_up" role="button">sign up</a>
    </p>
-   
+
    <div class="my-md-4">
 		  <p style="line-height:2rem">TripPlanへようこうそ<br>
 				このサイトは旅行の計画を立て、共有できるコミュニティサイトです。<br>
@@ -33,7 +33,7 @@
  	<tbody>
  		<% @plans.each do |plan| %>
     <tr>
-      <th><%= plan.plan_title %></th>
+      <th><%= link_to plan_path(plan) do %><%= plan.plan_title %><% end %></th>
       <td><%= plan.customer.name %></td>
       <td><%= plan.created_at.strftime('%Y/%m/%d') %></td>
       <td><%= plan.purpose_spot %></td>

@@ -1,8 +1,13 @@
-<section class="inner bg-info">
+<section class="inner bg-light">
 
-<form class="text-center py-5">
-  <div class="card py-5 mx-auto" style="width: 23rem;">
-  <h4>管理者ログイン</h4>
+<div class="container text-center py-5">
+<div class="row">
+<div class="card py-5 mx-auto" style="width: 23rem;">
+<h4>管理者ログイン</h4>
+ <% if flash[:danger] %>
+  <p class="text-red"><%= flash[:danger] %></p>
+ <% end %>
+ 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field mt-4 mb-4">
     <%= f.email_field :email, autofocus: true, autocomplete: "email",placeholder:"メールアドレス", size: "35" %>
@@ -12,13 +17,21 @@
     <%= f.password_field :password, autocomplete: "current-password",placeholder:"パスワード", size: "35" %>
   </div>
 
-  <div class="actions mt-5">
-    <%= f.submit "ログイン", class: "btn btn-sm btn-primary" %>
+  <% if devise_mapping.rememberable? %>
+    <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me, "パスワードを記憶する" %>
+    </div>
+  <% end %>
+
+  <div class="actionsmt-4">
+    <%= f.submit "ログイン", class: "btn btn-primary" %>
   </div>
 <% end %>
 
 <%= render "admin/shared/links" %>
-</div>
-</form>
 
-</section>
+
+</div>
+</div>
+</div>

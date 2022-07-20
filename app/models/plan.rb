@@ -47,15 +47,7 @@ class Plan < ApplicationRecord
     validates :days
     validates :budget
     validates :purpose_spot
-    validates :important_point_1
-    validates :important_point_2
-    validates :important_point_3
-    validates :important_point_4
-    validates :important_point_5
     validates :count
-    validates :memo
-    validates :cost_sum
-    validates :purposes
   end
   validates :plan_title, length: { maximum: 14 }, on: :publicize
 

@@ -9,7 +9,7 @@ ja:
       unauthenticated: "続けるにはログインが必要です。"
    
     registrations:
-      signed_up: "会員登録が完了しました。ようこそNaganoCakeへ！"
+      signed_up: "会員登録が完了しました。ようこそTripplanへ！"
       updated: "パスワードの更新が完了しました。"
    
     sessions:
@@ -25,3 +25,21 @@ ja:
     not_saved:
       one: "エラーが発生しました。以下ご確認お願いいたします。"
       other: "エラーが発生しました。以下ご確認お願いいたします。"
+      
+  activerecord:
+    errors:
+      models:
+        plan:
+          attributes:
+            departure:
+              blank: "出発日が未入力です"
+            arrival:
+              blank: "到着日が未入力です"
+            days:
+              blank: "泊数が未入力です"
+            budget:
+              blank: "予算がが未入力です"
+            purpose_spot:
+              blank: "目的地が未入力です"
+            count:
+              blank: "人数が未入力です"

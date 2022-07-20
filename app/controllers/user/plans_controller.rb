@@ -33,7 +33,6 @@ class User::PlansController < ApplicationController
 
   def index
     @plans = Plan.all
-    # @plans = Plan.page(params[:page]).per(10)
     @tag_list=Tag.all
     if params[:plan_title].present?
       @plans_search = Plan.where('plan_title LIKE ?', "%#{params[:plan_title]}%")
