@@ -31,6 +31,8 @@ ja:
       models:
         plan:
           attributes:
+            plan_title:
+              blank: "旅行のタイトルが未入力です"
             departure:
               blank: "出発日が未入力です"
             arrival:

@@ -14,7 +14,7 @@ class User::PlansController < ApplicationController
     @plan.purposes = params[:plan][:purposes].join(' ') if params[:plan][:purposes]
     # 投稿ボタンを押下した場合
     if params[:post]
-      if @plan.save(context: :publicize)
+      if @plan.save(context: :publicize, is_draft: false)
         @plan.save_tag(tag_list)
         redirect_to plan_path(@plan), notice: "計画を投稿しました！"
       else
@@ -32,7 +32,7 @@ class User::PlansController < ApplicationController
   end
 
   def index
-    @plans = Plan.all
+    @plans = Plan.where(is_draft: 'false')
     @tag_list=Tag.all
     if params[:plan_title].present?
       @plans_search = Plan.where('plan_title LIKE ?', "%#{params[:plan_title]}%")

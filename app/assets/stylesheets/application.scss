@@ -73,3 +73,22 @@
   height: 100%;
   width: 100%;
 }
+#error_explanation {
+  color: black;
+  padding-bottom: 20px;
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  ul {
+    padding-left: 50px;
+    list-style: circle;
+  }
+}
+.field_with_errors {
+  display: contents;
+  input,
+  textarea {
+    border: 2px solid red;
+  }
+}
