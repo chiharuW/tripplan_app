@@ -60,22 +60,27 @@
      <%= link_to "編集する", edit_plan_path, class: "mr-5 btn btn-success", "data-turbolinks": false %>
     <% end %>
     <!--ブックマーク-->
-    <% if @plan.bookmarked_by?(current_customer) %>
-     <%= link_to "ブックマークを外す", plan_bookmarks_path(@plan), method: :delete, class: "btn btn-sm btn-outline-info" %>
-    <% else %>
-     <%= link_to "ブックマーク", plan_bookmarks_path(@plan), method: :post, class: "btn btn-sm btn-info" %>
+    <% if customer_signed_in? %>
+     <% if @plan.bookmarked_by?(current_customer) %>
+      <%= link_to "ブックマークを外す", plan_bookmarks_path(@plan), method: :delete, class: "btn btn-sm btn-outline-info" %>
+     <% else %>
+      <%= link_to "ブックマーク", plan_bookmarks_path(@plan), method: :post, class: "btn btn-sm btn-info" %>
+     <% end %>
     <% end %>
 
     <!--いいね-->
-    <% if @plan.favorited_by?(current_customer) %>
-     <%= link_to plan_favorites_path(@plan), method: :delete, class: "ml-3 btn btn-sm btn-info" do %>
-      ♥<%= @plan.favorites.count %> いいね
-     <% end %>
-    <% else %>
-     <%= link_to plan_favorites_path(@plan), method: :post, class: "ml-3 btn btn-sm btn-outline-info" do %>
-      ♡<%= @plan.favorites.count %> いいね
+    <% if customer_signed_in? %>
+     <% if @plan.favorited_by?(current_customer) %>
+      <%= link_to plan_favorites_path(@plan), method: :delete, class: "ml-3 btn btn-sm btn-info" do %>
+       ♥<%= @plan.favorites.count %> いいね
+      <% end %>
+     <% else %>
+      <%= link_to plan_favorites_path(@plan), method: :post, class: "ml-3 btn btn-sm btn-outline-info" do %>
+       ♡<%= @plan.favorites.count %> いいね
+      <% end %>
      <% end %>
     <% end %>
+     
    </div>
   </div>
 

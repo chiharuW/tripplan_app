@@ -49,7 +49,6 @@ class Plan < ApplicationRecord
     validates :purpose_spot
     validates :count
   end
-  validates :plan_title, length: { maximum: 14 }, on: :publicize
 
   
 end

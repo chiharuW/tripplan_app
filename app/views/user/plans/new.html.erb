@@ -57,7 +57,7 @@
        <%= render partial: "plan_spot_list_fields", locals: { f: t } %>
       <% end %>
       <div class="add-botton-box col-md-12 text-center class-parent">
-       <%= link_to_add_association "候補地 ＋", f, :plan_spot_lists,
+       <%= link_to_add_association "＋", f, :plan_spot_lists, class: 'add_association_btn',
         data: {association_insertion_method: 'before'}
        %>
    　  </div>
@@ -83,10 +83,10 @@
     <div id="detail-association-insertion-point"></div>
     <div class="form-group form-inline input-group-sm ml-5 pt-3 border-top">
      <div class="add-botton-box col-md-8 text-center">
-     <%= link_to_add_association "スケジュール ＋", f, :actions, data: { association_insertion_node: '#detail-association-insertion-point',association_insertion_method: 'before'} %>
+     <%= link_to_add_association "＋", f, :actions, class: 'add_association_btn', data: { association_insertion_node: '#detail-association-insertion-point',association_insertion_method: 'before'} %>
      </div>
      <%= f.label :cost_sum, "合計", class: "col-md-1 ml-3" %>
-	    <%= f.number_field :cost_sum, class: "col-md-2" %>
+	    <%= f.text_field :cost_sum, class: "col-md-2" %>
 	   </div>
 	  </div>
   </div>

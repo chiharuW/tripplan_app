@@ -19,7 +19,7 @@
     position: relative;
     height: 100vh;
     min-height: 300px;
-    background: url(bg_image.jpg);
+    // background-image: image-url(bg_image.jpg);
     background-size: cover;
 }
 .jumbotron-container {
@@ -91,4 +91,33 @@
   textarea {
     border: 2px solid red;
   }
+}
+
+.add_association_btn {
+  padding: 4px 9px 5px 9px;
+  border-radius: 15px;
+  background-color: #00958D ;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+.add_association_btn:hover {
+  background-color: #7ACCC8;
+  color: #fff;
+  text-decoration: none;
+}
+
+.add_association_btn_delete{
+  padding: 2px 9px 4px 9px;
+  border-radius: 2px;
+  background-color: #CC2931 ;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.add_association_btn_delete:hover {
+  background-color: #801A1F;
+  color: #fff;
+  text-decoration: none;
 }

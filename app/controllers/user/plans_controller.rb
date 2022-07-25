@@ -1,5 +1,5 @@
 class User::PlansController < ApplicationController
-  # before_action :purposes_string, only: [:create, :update]
+  # before_action :purposes_string, only: [:create, :update\
    #チェックボックスの値を文字列表示にするため、createとupdateの前に必ず実行
 
   def new
