@@ -13,7 +13,6 @@ end
 
  scope module: :user do
    root 'homes#top'
-   # post '/homes/guest_sign_in', to: 'homes#guest_sign_in'
    get 'customers/about' => 'homes#about', as: 'about'
    get 'customers/mypage' => 'customers#show', as: 'mypage'
    get 'customers/information/edit' => 'customers#edit', as: 'edit_information'

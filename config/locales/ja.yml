@@ -7,16 +7,16 @@ ja:
       not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
       # timeout: "Your session expired. Please sign in again to continue."
       unauthenticated: "続けるにはログインが必要です。"
-   
+
     registrations:
       signed_up: "会員登録が完了しました。ようこそTripplanへ！"
       updated: "パスワードの更新が完了しました。"
-   
+
     sessions:
       signed_in: "ログインが完了しました。"
       signed_out: "ログアウトが完了しました。"
       already_signed_out: "ログアウトが完了しました。"
-  
+
   errors:
     messages:
       already_confirmed: "メールアドレスは既に登録されています。"
@@ -25,9 +25,11 @@ ja:
     not_saved:
       one: "エラーが発生しました。以下ご確認お願いいたします。"
       other: "エラーが発生しました。以下ご確認お願いいたします。"
-      
+
   activerecord:
     errors:
+      messages:
+        record_invalid: "バリデーションに失敗しました: %{errors}"
       models:
         plan:
           attributes:
