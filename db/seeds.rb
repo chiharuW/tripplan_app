@@ -20,8 +20,7 @@ Customer.create!(
   ]
  )
  
- 
- Plan.create!(
+  = Plan.create!(
   [
     {plan_title: '北海道２泊３日旅行', departure: '2022-07-01', arrival: '2022-07-03', days: '2', budget: '100000', count: '3', purpose_spot: '小樽、オルゴール堂、札幌二条市場、サーモンパーク千歳、さっぽろ羊ヶ丘展望台、札幌市時計台、さっぽろテレビ塔、白い恋人パーク', customer_id: customer[1].id },
   ]

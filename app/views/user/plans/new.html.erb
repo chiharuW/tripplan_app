@@ -3,10 +3,10 @@
 <h3 class="section-ttl text-center text-white pt-4 pb-3">新規投稿</h2>
 
   <div class="container">
-  
+
   <%= form_with(model: @plan, url: plans_path, local: true) do |f| %>
   <%= render 'layouts/error_messages', resource: @plan %>
-  
+
   <div class="rounded border border-info bg-white">
 
   <div class="col-md-3 control-label mt-2 mb-3 pt-1 font-weight-bold">step1 旅の基本情報</div>
@@ -102,8 +102,8 @@
 
     <div class="row mt-4 pb-5">
     <div class="form-inline mx-auto">
-      <%= f.submit '計画を公開', :name => 'post', class: 'mr-5 btn btn btn-warning text-info font-weight-bold' %>
-      <%= f.submit '下書きに保存', :name => 'draft', class: 'mr-5 btn btn btn-outline-warning font-weight-bold' %>
+      <%= f.submit '計画を公開', :name => 'post', class: 'mr-5 btn btn-warning text-info font-weight-bold' %>
+      <%= f.submit '下書きに保存', :name => 'draft', class: 'mr-5 btn btn-outline-warning font-weight-bold' %>
     </div>
     </div>
 
