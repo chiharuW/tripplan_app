@@ -34,4 +34,3 @@
 ## 使用素材
 - ユーザーアイコン：icooon-mono　https://icooon-mono.com/category/person/
 - 背景画像：morguefile　https://morguefile.com/
-- 
