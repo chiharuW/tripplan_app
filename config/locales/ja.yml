@@ -22,9 +22,9 @@ ja:
       already_confirmed: "メールアドレスは既に登録されています。"
       # not_found: "not found"
       # not_locked: "was not locked"
-    not_saved:
-      one: "エラーが発生しました。以下ご確認お願いいたします。"
-      other: "エラーが発生しました。以下ご確認お願いいたします。"
+      not_saved:
+        one: "エラーが発生しました。以下ご確認お願いいたします。"
+        other: "エラーが発生しました。以下ご確認お願いいたします。"
 
   activerecord:
     errors:
@@ -34,16 +34,38 @@ ja:
         plan:
           attributes:
             plan_title:
-              blank: "旅行のタイトルが未入力です"
+              blank: "が未入力です"
             departure:
-              blank: "出発日が未入力です"
+              blank: "が未入力です"
             arrival:
-              blank: "到着日が未入力です"
+              blank: "が未入力です"
             days:
-              blank: "泊数が未入力です"
+              blank: "が未入力です"
             budget:
-              blank: "予算がが未入力です"
+              blank: "が未入力です"
             purpose_spot:
-              blank: "目的地が未入力です"
+              blank: "が未入力です"
             count:
-              blank: "人数が未入力です"
+              blank: "が未入力です"
+        customer:
+          attributes:
+            email:
+              blank: "を入力してください"
+            password:
+              blank: "を入力してください"
+
+    models:
+      customer: "ユーザー"
+      plan: "計画"
+    attributes:
+      customer:
+        email: "メールアドレス"
+        password: "パスワード"
+      plan:
+        plan_title: "旅行のタイトル"
+        departure: "出発日"
+        arrival: "到着日"
+        days: "泊数"
+        budget: "予算"
+        purpose_spot: "目的地"
+        count: "人数"

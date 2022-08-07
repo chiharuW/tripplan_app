@@ -1,11 +1,16 @@
 class User::PostCommentsController < ApplicationController
+  before_action :authenticate_customer!
+
 
   def create
     plan = Plan.find(params[:plan_id])
     comment = current_customer.post_comments.new(post_comment_params)
     comment.plan_id = plan.id
-    comment.save
-    redirect_to plan_path(plan)
+    if comment.save
+       redirect_to plan_path(plan), notice: "コメントを送信しました！"
+    else 
+       render :new, alert:"コメントを送信できませんでした"
+    end
   end
 
   def destroy

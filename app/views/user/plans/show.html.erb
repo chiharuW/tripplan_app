@@ -4,7 +4,9 @@
  <h5 class="text-center pt-1 pb-3" >by <%= @plan.customer.name %></h5>
 
   <div class="container table-responsive">
-   <%= flash[:notice] %>
+   <div class="mx-auto col-md-8">
+    <%= flash[:notice] %>
+   </div>
 	 <table class="table-bordered mx-auto table col-md-8">
 	  <tr>
 		  <td class= "col-md-1 table-secondary">出発日</td>
@@ -15,7 +17,7 @@
 		  <td class= "col-md-1 table-light"><%= @plan.days %>泊</td>
 	  <tr>
    	<td class= "col-md-1 table-secondary">予算</td>
-		  <td class= "col-md-1 table-light"><%= @plan.budget %>円</td>
+		  <td class= "col-md-1 table-light"><%= @plan.budget.to_s(:delimited) %>円</td>
 		  <td class= "col-md-1 table-secondary">人数</td>
     <td class= "col-md-1 table-light"><%= @plan.count %>人</td>
 	  </tr>

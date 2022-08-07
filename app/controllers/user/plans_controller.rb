@@ -49,15 +49,20 @@ class User::PlansController < ApplicationController
 
   def edit
     @plan = Plan.find(params[:id])
+     if @plan.customer == current_customer
+       render "edit"
+     else
+      redirect_to plans_path
+     end
     @tag_list = @plan.tags.pluck(:name).join(',')
   end
 
   def update
     @plan = Plan.find(params[:id])
     tag_list=params[:plan][:name].split(',')
-      # ①下書きレシピの更新（公開）の場合
+      # ①下書きプランの更新（公開）の場合
     if params[:publicize_draft]
-      # レシピ公開時にバリデーションを実施
+      # プラン公開時にバリデーションを実施
       # updateメソッドにはcontextが使用できないため、公開処理にはattributesとsaveメソッドを使用する
       @plan.attributes = plan_params.merge(is_draft: false)
       if @plan.save(context: :publicize)
@@ -71,7 +76,7 @@ class User::PlansController < ApplicationController
         @plan.is_draft = true
         render :edit, alert: "計画を公開できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
       end
-    # ②公開済みレシピの更新の場合
+    # ②公開済みプランの更新の場合
     elsif params[:update_post]
       @plan.attributes = plan_params
       if @plan.save(context: :publicize)
@@ -84,7 +89,7 @@ class User::PlansController < ApplicationController
       else
         render :edit, alert: "計画を更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
       end
-    # ③下書きレシピの更新（非公開）の場合
+    # ③下書きプランの更新（非公開）の場合
     else
       if @plan.update(plan_params)
           @old_relations=PostTag.where(plan_id: @plan.id)
@@ -100,8 +105,8 @@ class User::PlansController < ApplicationController
   end
 
   def destroy
-    @plan = Plan.find(params[:id])
-    @plan.destroy
+    plan = Plan.find(params[:id])
+    plan.destroy
     redirect_to plans_path
   end
 

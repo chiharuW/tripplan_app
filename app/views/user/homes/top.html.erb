@@ -37,7 +37,7 @@
       <td><%= plan.customer.name %></td>
       <td><%= plan.created_at.strftime('%Y/%m/%d') %></td>
       <td><%= plan.purpose_spot %></td>
-      <td><%= plan.budget %> 円</td>
+      <td><%= plan.budget.to_s(:delimited) %> 円</td>
 	  </tr>
 	  <% end %>
 	</tbody>
