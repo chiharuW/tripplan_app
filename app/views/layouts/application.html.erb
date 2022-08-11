@@ -22,7 +22,7 @@
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
          </button>
-  
+
     <% if admin_signed_in? %>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ml-auto">
@@ -88,19 +88,11 @@
     </main>
 
 
-     <footer class="footer-expand-lg navbar-dark bg-dark pt-3 pb-3">
-      <ul class="navbar-nav">
-         <li class="nav-list-inline-item active">
-           <a class="nav-link"href="#">お問い合わせ</a>
-         </li>
-        <!-- <li class="nav-item active">-->
-        <!--   <a class="nav-link"href="#">お問い合わ</a>-->
-        <!-- </li>-->
-        <!--<li class="list-inline-item"><a href="#">お問い合わせ</a></li>-->
-        <!--<li class="list-inline-item"><a href="#">採用情報</a></li>-->
-        <!--<li class="list-inline-item"><a href="#">運営会社</a></li>-->
-        </ul>
-    </footer>
+     <footer class="footer-expand-lg bg-dark pt-3 pb-3 text-center">
+      <%= link_to "https://twitter.com/home",class: "btn text-white" do %>
+       <i class="fab fa-twitter-square fa-lg" ></i>
+      <% end %>
+     </footer>
 
   </body>
 </html>

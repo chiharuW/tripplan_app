@@ -20,14 +20,14 @@
 
 <div class="container">
 <h3>新着投稿</h3>
- <table class="table table-borderless col-md-11">
+ <table class="table table-borderless col-md-12 mx-auto">
  	<thead>
  		<tr>
- 		 <th>タイトル</th>
- 		 <th>投稿者</th>
- 		 <th>作成日</th>
- 		 <th>目的地</th>
- 		 <th>予算</th>
+ 		 <th class="col-md-2 text-center">タイトル</th>
+ 			<th class="col-md-1 text-center">投稿者</th>
+ 		 <th class="col-md-1 text-center">作成日</th>
+ 		 <th class="col-md-6 text-center">目的地</th>
+ 		 <th class="col-md-2 text-center">予算</th>
  		</tr>
  	</thead>
  	<tbody>
@@ -37,7 +37,7 @@
       <td><%= plan.customer.name %></td>
       <td><%= plan.created_at.strftime('%Y/%m/%d') %></td>
       <td><%= plan.purpose_spot %></td>
-      <td><%= plan.budget.to_s(:delimited) %> 円</td>
+      <td class="text-right"><%= plan.budget.to_s(:delimited) %> 円</td>
 	  </tr>
 	  <% end %>
 	</tbody>
