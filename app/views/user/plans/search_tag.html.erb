@@ -1,38 +1,37 @@
 <div class="container">
-<h5>タグが<%=@tag.name%>の投稿一覧</h5>
+<h5>タグが"<%=@tag.name%>"の投稿一覧</h5>
 
 <!--タグリスト-->
-<% @tag_list.each do |list|%>
-<%=link_to list.name,search_tag_path(tag_id: list.id) %>
-<%="(#{list.plans.count})" %><% end %>
-
-<% @plans.each do |plan| %>
-<!--投稿はカードで囲む-->
-<div class="card">
-  <div class="card-body">
-    <h6 class="card-title">
-      <%=link_to plan_path(plan.id) do %><%= plan.plan_title %>
-      <% end %>
-    </h6>
-
-
-  </div>
+<div class="row mb-2 border-bottom">
+ <div class="col-md-8 mb-2">タグリスト：
+  <% @tag_list.each do |list|%>
+   <%=link_to list.name,search_tag_path(tag_id: list.id) %>
+   <%="(#{list.plans.count})" %>
+  <% end %>
+ </div>
 </div>
-<% end %>
 
-
-
-<style>
-.card{
-  padding:0;
-  margin:0;
-  border:none;
-}
-
-
-
-h6 {
-  /*線の種類（実線） 太さ 色*/
-  border-bottom: solid 3px black;
-}
-</style>
+<div class="row mt-3">
+<table class="table table-borderless col-md-12 mx-auto">
+ 	<thead>
+ 		<tr>
+ 			<th class="col-md-2 text-center">タイトル</th>
+ 			<th class="col-md-1 text-center">投稿者</th>
+ 		 <th class="col-md-1 text-center">作成日</th>
+ 		 <th class="col-md-6 text-center">目的地</th>
+ 		 <th class="col-md-2 text-center">予算</th>
+ 		</tr>
+ 	</thead>
+ 	<tbody>
+   <% @plans.each do |plan| %>
+    <tr>
+     <th><%= link_to plan_path(plan) do %><%= plan.plan_title %><% end %></th>
+      <td><%= plan.customer.name %></td>
+      <td><%= plan.created_at.strftime('%Y/%m/%d') %></td>
+      <td><%= plan.purpose_spot %></td>
+      <td class="text-right"><%= plan.budget.to_s(:delimited) %> 円</td>
+	   </tr>
+  <% end %>
+  </tbody>
+  </table>
+  </div>

@@ -32,15 +32,17 @@ class User::PlansController < ApplicationController
   end
 
   def index
-    @plans = Plan.where(is_draft: 'false')
     @tag_list=Tag.all
-    if params[:plan_title].present?
-      @plans_search = Plan.where('plan_title LIKE ?', "%#{params[:plan_title]}%")
-    else
-      @plans_search = Plan.none
-    end
+    @plans = Plan.page(params[:page]).search(params[:search])
   end
 
+  def search_tag
+    #検索結果画面でもタグ一覧表示
+    @tag_list=Tag.all
+    @tag=Tag.find(params[:tag_id])
+    @plans=@tag.plans.all
+  end
+  
   def show
     @plan = Plan.find(params[:id])
     @post_comment = PostComment.new
@@ -110,12 +112,7 @@ class User::PlansController < ApplicationController
     redirect_to plans_path
   end
 
-  def search_tag
-    #検索結果画面でもタグ一覧表示
-    @tag_list=Tag.all
-    @tag=Tag.find(params[:tag_id])
-    @plans=@tag.plans.all
-  end
+
 
   private
 

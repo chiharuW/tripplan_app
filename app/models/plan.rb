@@ -38,6 +38,15 @@ class Plan < ApplicationRecord
       self.tags << new_post_tag
    end
   end
+  
+  def self.search(search) #self.はPlan.を意味する
+   if search
+     where(['plan_title LIKE ?', "%#{search}%"]) #検索とplan_titleの部分一致を表示。
+   else
+     Plan.where(is_draft: 'false') #下書き以外の全てを表示させる
+   end
+  end
+ 
 
 
   with_options presence: true, on: :publicize do

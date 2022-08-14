@@ -12,10 +12,10 @@
    <% end %>
   </div>
   <div class="col-md-4 mb-2">
-   <%= form_with url: plans_path, method: :get, local: true do |f| %>
-    <%= f.text_field :plan_title, placeholder:"キーワード検索" %>
-    <%= f.submit :search %>
-   <% end %>
+   <%= form_tag(plans_path, :method => "get") do %>
+    <%= text_field_tag :search %> 
+　　<%= submit_tag "Search" ,:plan_title => nil ,class: "button is-info"%> 
+   <% end %> 
   </div>
  </div>
 
@@ -30,13 +30,10 @@
  		 <th class="col-md-2 text-center">予算</th>
  		</tr>
  	</thead>
- 	<tbody class="border-bottom">
-   <% @plans_search.each do |plan| %>
+ 	<tbody>
+   <% @plans.each do |plan| %>
     <tr>
-     <th><%= link_to plan_path(plan) do %>
-          <%= plan.plan_title %>
-         <% end %>
-     </th>
+     <th><%= link_to plan_path(plan) do %><%= plan.plan_title %><% end %></th>
       <td><%= plan.customer.name %></td>
       <td><%= plan.created_at.strftime('%Y/%m/%d') %></td>
       <td><%= plan.purpose_spot %></td>
@@ -44,23 +41,15 @@
 	   </tr>
   <% end %>
   </tbody>
- 	<tbody>
- 	<% @plans.each do |plan| %>
-   <tr>
-    <th><%= link_to plan_path(plan) do %>
-         <%= plan.plan_title %>
-        <% end %>
-    </th>
-     <td><%= plan.customer.name %></td>
-     <td><%= plan.created_at.strftime('%Y/%m/%d') %></td>
-     <td><%= plan.purpose_spot %></td>
-     <td class="text-right"><%= plan.budget.to_s(:delimited) %> 円</td>
-	  </tr>
-	 <% end %>
-	 </tbody>
   </table>
  </div>
+  
+ <div class="row mx-auto mt-3">
+  <div class="col-md-3 mx-auto">
+   <%= paginate @plans %>
+  </div>
+ </div>
+ 
 </div>
-
 </div>
 </section>
