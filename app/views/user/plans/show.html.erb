@@ -71,17 +71,9 @@
     <% end %>
 
     <!--いいね-->
-    <% if customer_signed_in? %>
-     <% if @plan.favorited_by?(current_customer) %>
-      <%= link_to plan_favorites_path(@plan), method: :delete, class: "ml-3 btn btn-sm btn-info" do %>
-       ♥<%= @plan.favorites.count %> いいね
-      <% end %>
-     <% else %>
-      <%= link_to plan_favorites_path(@plan), method: :post, class: "ml-3 btn btn-sm btn-outline-info" do %>
-       ♡<%= @plan.favorites.count %> いいね
-      <% end %>
-     <% end %>
-    <% end %>
+　　<div id="favorite_buttons_<%= @plan.id %>">
+　　　<%= render partial: "favorites/favorite", locals: {plan: @plan} %>
+　　</div>
      
    </div>
   </div>
