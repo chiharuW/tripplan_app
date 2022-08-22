@@ -61,20 +61,24 @@
     <% if @plan.customer == current_customer %>
      <%= link_to "編集する", edit_plan_path, class: "mr-5 btn btn-success", "data-turbolinks": false %>
     <% end %>
+    
     <!--ブックマーク-->
-    <% if customer_signed_in? %>
-     <% if @plan.bookmarked_by?(current_customer) %>
-      <%= link_to "ブックマークを外す", plan_bookmarks_path(@plan), method: :delete, class: "btn btn-sm btn-outline-info" %>
-     <% else %>
-      <%= link_to "ブックマーク", plan_bookmarks_path(@plan), method: :post, class: "btn btn-sm btn-info" %>
-     <% end %>
-    <% end %>
+  　<div id="bookmark_buttons_<%= @plan.id %>">
+　　　<%= render 'user/bookmarks/bookmark', plan: @plan %>
+　　</div>
+    <!--<%# if customer_signed_in? %>-->
+    <!-- <%# if @plan.bookmarked_by?(current_customer) %>-->
+    <!--  <%#= link_to "ブックマークを外す", plan_bookmarks_path(@plan), method: :delete, class: "btn btn-sm btn-outline-info" %>-->
+    <!-- <%#else %>-->
+    <!--  <%#= link_to "ブックマーク", plan_bookmarks_path(@plan), method: :post, class: "btn btn-sm btn-info" %>-->
+    <!-- <%# end %>-->
+    <!--<%# end %>-->
 
     <!--いいね-->
 　　<div id="favorite_buttons_<%= @plan.id %>">
-　　　<%= render partial: "favorites/favorite", locals: {plan: @plan} %>
+　　　<%= render 'user/favorites/favorite', plan: @plan %>
 　　</div>
-     
+
    </div>
   </div>
 

@@ -1,0 +1,7 @@
+<% if customer_signed_in? %>
+ <% if plan.bookmarked_by?(current_customer) %>
+  <%= link_to "ブックマークを外す", plan_bookmarks_path(plan), method: :delete, remote: true, class: "btn btn-sm btn-outline-info" %>
+ <% else %>
+  <%= link_to "ブックマーク", plan_bookmarks_path(plan), method: :post, remote: true, class: "btn btn-sm btn-info" %>
+ <% end %>
+<% end %>

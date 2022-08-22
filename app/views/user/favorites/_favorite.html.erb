@@ -1,13 +1,22 @@
 <% if customer_signed_in? %>
 
  <% if plan.favorited_by?(current_customer) %>
-  <%= link_to plan_favorites_path(plan), method: :delete, remote: true, class: "ml-3 btn btn-sm btn-info" do %>
-  ♥<%= plan.favorites.count %> いいね
-  <% end %>
+   <%= link_to plan_favorites_path(plan), method: :delete, remote: true, class: "btn btn-sm btn-info" do %>
+    <i class="fas fa-heart"></i><%=plan.favorites.count %> いいね
+   <% end %>
+  <!--<%#= link_to plan_favorites_path(plan), method: :delete, remote: true, class: "ml-3 btn btn-sm btn-info" do %>-->
+  <!--♥<%#= plan.favorites.count %> いいね-->
+  <!--<%# end %>-->
  <% else %>
-  <%= link_to plan_favorites_path(plan), method: :post, remote: true, class: "ml-3 btn btn-sm btn-outline-info" do %>
-  ♡<%= plan.favorites.count %> いいね
-  <% end %>
+   <%= link_to plan_favorites_path(plan), method: :post, remote: true, class: "btn btn-sm btn-outline-info" do %>
+    <i class="far fa-heart"></i><%= plan.favorites.count %> いいね
+   <% end %>
  <% end %>
+  
+ <!--<%# else %>-->
+ <!-- <%#= link_to plan_favorites_path(plan), method: :post, remote: true, class: "ml-3 btn btn-sm btn-outline-info" do %>-->
+ <!-- ♡<%#= plan.favorites.count %> いいね-->
+ <!-- <%# end %>-->
+ <!--<%# end %>-->
  
 <% end %>
