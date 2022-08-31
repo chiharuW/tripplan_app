@@ -15,10 +15,12 @@ import "../stylesheets/application"
 import '@fortawesome/fontawesome-free/js/all'
 
 require('jquery')
-import "cocoon";
+import "cocoon"; 
+ // 候補地と計画を複数保存するために追加した
 
 window.$ = window.jQuery = require('jquery');
 require('packs/raty')
+ // 候補地の取捨選択のための☆評価として追加した
 
 Rails.start()
 Turbolinks.start()

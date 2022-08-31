@@ -19,6 +19,7 @@ class Plan < ApplicationRecord
    favorites.where(customer_id: customer).exists?
   end
 
+
   def save_tag(sent_tags)
   # タグが存在していれば、タグの名前を配列として全て取得
     current_tags = self.tags.pluck(:name) unless self.tags.nil?
@@ -38,6 +39,7 @@ class Plan < ApplicationRecord
       self.tags << new_post_tag
    end
   end
+  
   
   def self.search(search) #self.はPlan.を意味する
    if search

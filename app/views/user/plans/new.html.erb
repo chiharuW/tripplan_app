@@ -37,6 +37,7 @@
      <% ["ゆっくりのんびり　","リフレッシュ　","グルメ　","アクティビティ　","温泉　","散策　","映え　","観光　","その他"].each.with_index do |purpose,i| %>
       <label>
        <%= f.check_box :purposes, {multiple: true}, purpose, nil %>
+       <!--multiple: tureは複数のチェックボックスを並べるたいときに使う-->
        <%= purpose %>
       </label>
      <% end %>
@@ -47,9 +48,9 @@
       <p class="col-md-4 text-center pt-3 small">目的地を決めるための条件です。候補地が条件をクリアしていれば☆をつけ、その数を参考に取捨選択しましょう。</p>
       <%= f.text_field :important_point_1 ,:size=>"6",class:"mr-2", placeholder:"例：予算内" %>
 				  <%= f.text_field :important_point_2 ,:size=>"6",class:"mr-2", placeholder:"例：距離" %>
-					 <%= f.text_field :important_point_3 ,:size=>"6",class:"mr-2", placeholder:"" %>
-					 <%= f.text_field :important_point_4 ,:size=>"6",class:"mr-2", placeholder:"" %>
-					 <%= f.text_field :important_point_5 ,:size=>"6", placeholder:"" %>
+					 <%= f.text_field :important_point_3 ,:size=>"6",class:"mr-2" %>
+					 <%= f.text_field :important_point_4 ,:size=>"6",class:"mr-2" %>
+					 <%= f.text_field :important_point_5 ,:size=>"6" %>
     </div>
 
     <div class="mb-4">
@@ -57,10 +58,9 @@
        <%= render partial: "plan_spot_list_fields", locals: { f: t } %>
       <% end %>
       <div class="add-botton-box col-md-12 text-center class-parent">
-       <!--＋ボタンを押したら候補地の入力欄が増える-->
-       <%= link_to_add_association "＋", f, :plan_spot_lists, class: 'add_association_btn',
-        data: {association_insertion_method: 'before'}
-       %>
+       <!--＋ボタンを押したら候補地の入力欄が増える。部分テンプレート先でjQueryを記載-->
+       <%= link_to_add_association "＋", f, :plan_spot_lists, class: 'add_association_btn', data: {association_insertion_method: 'before'}%>
+       <!--link_to_add_associationで、子要素を一つ追加する-->
    　  </div>
     </div>
 
@@ -86,6 +86,7 @@
      <div class="add-botton-box col-md-8 text-center">
      <!--＋ボタンを押したら計画の入力欄が増える-->
      <%= link_to_add_association "＋", f, :actions, class: 'add_association_btn', data: { association_insertion_node: '#detail-association-insertion-point',association_insertion_method: 'before'} %>
+     <!--link_to_add_associationで、子要素を一つ追加する-->
      </div>
      <%= f.label :cost_sum, "合計", class: "col-md-1 ml-3" %>
 	    <%= f.text_field :cost_sum, class: "col-md-2" %>

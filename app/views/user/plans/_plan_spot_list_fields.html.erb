@@ -1,9 +1,13 @@
+<!--プラスボタンを押したら計画の入力欄が増え、データも保存される-->
+<!--Gemのcocoonを導入し、親子関係のテーブル(親plan、子action）に複数のデータを同時に保存できるようにできるようにした-->
+
 <div class="nested-fields">
  <div class="form-group form-inline input-group-sm">
 
   <%= f.label :spot_list, "候補地" , class: "col-md-2" %>
   <%= f.text_field :spot_list , class: "col-md-4 spot_list" %>
 
+  <!--候補地を取捨選択するための☆評価-->
   <div class="field text-center col-md-4">
    <span class="star"></span>
    <%= f.hidden_field :evaluation, name: :review_star, class: 'review_star' %>
@@ -23,6 +27,7 @@
 
   <div class="text-center col-md-1">
    <%= link_to_remove_association "×", f , class: "add_association_btn_delete" %>
+    <!--link_to_remove_associationでモデルを削除する-->
   </div>
 
  </div>

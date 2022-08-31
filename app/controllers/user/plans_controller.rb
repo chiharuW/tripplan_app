@@ -1,6 +1,4 @@
 class User::PlansController < ApplicationController
-  # before_action :purposes_string, only: [:create, :update\
-   #チェックボックスの値を文字列表示にするため、createとupdateの前に必ず実行
 
   def new
     @plan = Plan.new
@@ -42,7 +40,7 @@ class User::PlansController < ApplicationController
     @tag=Tag.find(params[:tag_id])
     @plans=@tag.plans.all
   end
-  
+
   def show
     @plan = Plan.find(params[:id])
     @post_comment = PostComment.new
@@ -117,11 +115,29 @@ class User::PlansController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(:plan_title, :departure, :arrival, :days, :budget, :purpose_spot, :important_point_1, :important_point_2, :important_point_3, :important_point_4, :important_point_5, :count, :memo, :cost_sum, :checkbox, purposes:[], plan_spot_lists_attributes:[:id, :spot_list, :evaluation, :_destroy], actions_attributes:[:id, :action, :action_detail, :action_datetime, :cost, :_destroy]).merge(customer_id: current_customer.id)
+    params.require(:plan).permit(
+      :plan_title,        #タイトル
+      :departure,         #出発日
+      :arrival,           #到着日
+      :days,              #泊数
+      :budget,            #予算
+      :purpose_spot,      #目的地
+      :important_point_1, #条件1つ目
+      :important_point_2, #条件2つ目
+      :important_point_3, #条件3つ目
+      :important_point_4, #条件4つ目
+      :important_point_5, #条件5つ目
+      :count,             #人数
+      :memo,              #メモ
+      :cost_sum,          #合計
+      :checkbox,          #チェックボックス
+      purposes:[],        #目的を保存。温泉とアクティビティとゆっくりのんびりなど複数保存できるように配列
+      plan_spot_lists_attributes:[:id, :spot_list, :evaluation, :_destroy],
+        #候補地を複数保存できる。cocoonの導入。{子モデル}_attributes:[]はActiveRecordのメソッド。親モデルのコントローラーのparamsにパラメータを追加できる
+      actions_attributes:[:id, :action, :action_detail, :action_datetime, :cost, :_destroy]
+        #計画を複数保存できる。
+    ).merge(customer_id: current_customer.id)
+      #mergeメソッドを使うと、ユーザから受け取ったparamsにはないけれど、レコード作成時に追加したい値を含めることができる
   end
-
-  # def purposes_string
-  # params[:plan][:purposes] = params[:plan][:purposes].join("/") # to string
-  # end
 
 end
